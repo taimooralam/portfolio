@@ -1,0 +1,37 @@
+{
+  "name": "technical-lead-website",
+  "version": "1.0.0",
+  "description": "Professional technical lead portfolio website",
+  "main": "src/index.html",
+  "private": true,
+  "author": "Your Name <your.email@domain.com>",
+  "license": "MIT",
+  "homepage": "https://your-domain.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yourusername/technical-lead-website.git"
+  },
+  "keywords": [
+    "portfolio",
+    "technical-lead",
+    "website",
+    "frontend"
+  ],
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "start": "vite preview --port 3000",
+    "test": "echo \"No tests specified\" && exit 0",
+    "lint": "echo \"No linter configured\" && exit 0",
+    "format": "echo \"No formatter configured\" && exit 0"
+  },
+  "devDependencies": {
+    "vite": "^5.0.0"
+  },
+  "dependencies": {}
+}
