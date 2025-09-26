@@ -254,7 +254,7 @@ vercel login
 # vercel login --token YOUR_VERCEL_TOKEN
 ```
 
-### Step 9: Configure Vercel Project
+### Step 9: Configure Vercel Project ✅ COMPLETE
 ```bash
 # Initialize Vercel project
 vercel init
@@ -269,9 +269,289 @@ vercel --prod
 ```
 
 ### Step 10: Create Vercel Configuration
-- Create `vercel.json` with build and deployment settings
-- Configure environment variables (if needed)
-- Set up custom domains section (for future use)
+#### Substeps:
+
+1. **Create `vercel.json` Configuration File** ✅ COMPLETE:
+   Create a comprehensive Vercel configuration file in the project root:
+   ```json
+   {
+     "version": 2,
+     "name": "technical-lead-website",
+     "builds": [
+       {
+         "src": "src/**/*",
+         "use": "@vercel/static"
+       }
+     ],
+     "routes": [
+       {
+         "src": "/(.*)",
+         "dest": "/src/$1"
+       },
+       {
+         "src": "/",
+         "dest": "/src/index.html"
+       }
+     ],
+     "functions": {
+       "src/api/**/*.js": {
+         "runtime": "nodejs18.x"
+       }
+     },
+     "env": {
+       "NODE_ENV": "production"
+     },
+     "build": {
+       "env": {
+         "NODE_ENV": "production"
+       }
+     },
+     "headers": [
+       {
+         "source": "/(.*)",
+         "headers": [
+           {
+             "key": "X-Content-Type-Options",
+             "value": "nosniff"
+           },
+           {
+             "key": "X-Frame-Options",
+             "value": "DENY"
+           },
+           {
+             "key": "X-XSS-Protection",..
+             "value": "1; mode=block"
+           }
+         ]
+       },
+       {
+         "source": "/src/styles/(.*)",
+         "headers": [
+           {
+             "key": "Cache-Control",
+             "value": "public, max-age=31536000, immutable"
+           }
+         ]
+       }
+     ],
+     "redirects": [
+       {
+         "source": "/home",
+         "destination": "/",
+         "permanent": true
+       }
+     ]
+   }
+   ```
+
+2. **Configure Build Settings** ✅ COMPLETE:
+   - **Build Command**: Set to `npm run build` (if using Vite) or leave empty for static files ✅ COMPLETE
+   - **Output Directory**: Set to `dist` (for Vite) or `src` (for static files) ✅ COMPLETE
+   - **Install Command**: Set to `npm install` or `npm ci` for faster, reliable builds ✅ COMPLETE
+   - **Development Command**: Set to `npm run dev` for preview deployments ✅ COMPLETE
+
+3. **Set Up Environment Variables** ⚠️ **OPTIONAL BUT RECOMMENDED**:
+   
+   **IMPORTANCE ANALYSIS:**
+   
+   **Current Status**: The project currently uses hardcoded values (title, contact info, etc.) and does NOT require environment variables to function. However, environment variables provide significant benefits for:
+   
+   - **Flexibility**: Easy content updates without code changes
+   - **Security**: Keep sensitive data (API keys, contact info) out of source code
+   - **Multi-environment**: Different values for development/staging/production
+   - **Professional practices**: Industry standard for modern web applications
+   
+   **WHERE ENVIRONMENT VARIABLES ARE STORED:**
+   
+   1. **Local Development**: `.env` file in project root (not committed to git)
+   2. **Vercel Dashboard**: Project Settings → Environment Variables section
+   3. **Vercel CLI**: `vercel env add` commands
+   4. **GitHub Secrets**: For CI/CD pipeline (if using GitHub Actions)
+   
+   **IMPLEMENTATION OPTIONS:**
+   
+   **Option A: Skip Environment Variables (Minimal Setup)**
+   - Keep current hardcoded approach
+   - Suitable for simple, static portfolios
+   - No additional configuration needed
+   
+   **Option B: Basic Environment Variables (Recommended)**
+   - Add dynamic title, description, contact info
+   - Easy content management
+   - Professional best practice
+   
+   **Option C: Full Environment Configuration (Advanced)**
+   - Analytics, monitoring, API integrations
+   - Multiple environments (dev/staging/prod)
+   - Enterprise-level configuration
+   
+   **RECOMMENDED IMPLEMENTATION (Option B):**
+   
+   Configure environment variables in Vercel dashboard:
+   ```bash
+   # Essential variables for dynamic content
+   VITE_APP_TITLE=Technical Lead Portfolio
+   VITE_APP_DESCRIPTION=Professional technical lead portfolio website
+   VITE_CONTACT_EMAIL=your.email@domain.com
+   VITE_CONTACT_PHONE=+1-234-567-8900
+   VITE_LINKEDIN_URL=https://linkedin.com/in/yourprofile
+   VITE_GITHUB_URL=https://github.com/yourusername
+   
+   # Optional: Analytics and tracking
+   VITE_GA_TRACKING_ID=GA_MEASUREMENT_ID
+   VITE_SENTRY_DSN=SENTRY_PROJECT_DSN
+   
+   # Optional: Contact form integration
+   VITE_FORMSPREE_ENDPOINT=your_formspree_endpoint
+   VITE_NETLIFY_FORM_NAME=contact-form
+   
+   # Build-time variables
+   NODE_ENV=production
+   ```
+   
+   **USAGE IN CODE:**
+   ```javascript
+   // In src/components/app.js or HTML
+   const appTitle = import.meta.env.VITE_APP_TITLE || 'Technical Lead Portfolio';
+   const contactEmail = import.meta.env.VITE_CONTACT_EMAIL || 'contact@example.com';
+   ```
+   
+   **VERCEL CONFIGURATION:**
+   ```bash
+   # Add via Vercel CLI
+   vercel env add VITE_APP_TITLE production
+   vercel env add VITE_CONTACT_EMAIL production
+   
+   # Or configure in Vercel Dashboard:
+   # 1. Go to Project Settings → Environment Variables
+   # 2. Add each variable with appropriate environment (Production/Preview/Development)
+   # 3. Redeploy to apply changes
+   ```
+
+4. **Configure Project Settings in Vercel Dashboard**:
+   - **Framework Preset**: Select "Other" or "Vite" (if using Vite)
+   - **Root Directory**: Set to `.` (project root)
+   - **Build Command**: `npm run build` (if using Vite) or leave empty
+   - **Output Directory**: `dist` (for Vite) or `src` (for static)
+   - **Install Command**: `npm install`
+
+5. **Set Up Deployment Configuration**:
+   ```bash
+   # First, create a new Vercel project (if not already created)
+   vercel
+   
+   # Follow the prompts to:
+   # - Choose your Git repository
+   # - Set project name (e.g., "technical-lead-website")
+   # - Choose framework (select "Other" for static site)
+   # - Set root directory (use ".")
+   # - Set build command (leave empty for static files)
+   # - Set output directory (use "src" for static files)
+   
+   # After project creation, link your local project
+   vercel link
+   
+   # Configure deployment settings
+   vercel env add NODE_ENV production
+   vercel env add VITE_APP_TITLE "Technical Lead Portfolio"
+   
+   # Set up automatic deployments
+   vercel --prod
+   ```
+
+6. **Configure Custom Domains (Future Use)**:
+   Prepare for custom domain setup:
+   ```bash
+   # Add custom domain (when ready)
+   vercel domains add yourdomain.com
+   
+   # Configure DNS settings
+   # Add CNAME record: www -> cname.vercel-dns.com
+   # Add A record: @ -> 76.76.19.61
+   ```
+
+7. **Set Up Preview Deployments**:
+   - Enable automatic preview deployments for pull requests
+   - Configure branch-specific deployments
+   - Set up preview environment variables
+
+8. **Configure Performance Optimizations**:
+   ```json
+   {
+     "functions": {
+       "maxDuration": 10
+     },
+     "regions": ["iad1"],
+     "headers": [
+       {
+         "source": "/src/(.*)",
+         "headers": [
+           {
+             "key": "Cache-Control",
+             "value": "public, max-age=31536000, immutable"
+           }
+         ]
+       }
+     ]
+   }
+   ```
+
+9. **Set Up Monitoring and Analytics**:
+   - Enable Vercel Analytics in dashboard
+   - Configure Web Vitals monitoring
+   - Set up error tracking (optional)
+
+10. **Test Deployment Configuration**:
+    ```bash
+    # Test local build
+    npm run build
+    
+    # Test Vercel deployment
+    vercel --prod
+    
+    # Verify deployment
+    vercel ls
+    ```
+
+**Commands to Complete Step 10:**
+```bash
+# 1. Create vercel.json configuration (already done)
+# vercel.json file is already created with comprehensive configuration
+
+# 2. Create new Vercel project
+vercel
+
+# Follow the interactive prompts:
+# - Choose your Git repository (select your GitHub repo)
+# - Set project name: "technical-lead-website"
+# - Choose framework: "Other" (for static site)
+# - Set root directory: "." (current directory)
+# - Set build command: (leave empty for static files)
+# - Set output directory: "src" (for static files)
+
+# 3. Link project to Vercel (after project creation)
+vercel link
+
+# 4. Configure environment variables
+vercel env add NODE_ENV production
+vercel env add VITE_APP_TITLE "Technical Lead Portfolio"
+
+# 5. Deploy to production
+vercel --prod
+
+# 6. Verify deployment
+vercel ls
+```
+
+**To Complete:**
+- Create comprehensive `vercel.json` with security headers, caching, and routing ✅ COMPLETE
+- Configure build settings for static site deployment ✅ COMPLETE
+- Set up environment variables for production ⚠️ **OPTIONAL** (see detailed analysis above)
+- Configure project settings in Vercel dashboard
+- Set up automatic deployments and preview environments
+- Prepare custom domain configuration for future use
+- Configure performance optimizations and monitoring
+- Test deployment configuration and verify functionality
 
 ## Phase 4: CI/CD Pipeline Implementation
 
@@ -355,11 +635,14 @@ technical-lead-website/
 │   ├── components/
 │   ├── styles/
 │   └── index.html
+├── .env.example          # Environment variables template (optional)
+├── .env                  # Local environment variables (not committed)
 ├── .gitignore
 ├── .eslintrc.js
 ├── .prettierrc
 ├── package.json
 ├── vercel.json
+├── vite.config.js
 ├── Dockerfile
 ├── docker-compose.yml
 ├── .dockerignore
@@ -386,16 +669,25 @@ coverage
 ```json
 {
   "version": 2,
+  "name": "technical-lead-website",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "installCommand": "npm install",
+  "devCommand": "npm run dev",
   "builds": [
     {
-      "src": "src/**/*",
+      "src": "dist/**/*",
       "use": "@vercel/static"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "/src/$1"
+      "dest": "/dist/$1"
+    },
+    {
+      "src": "/",
+      "dest": "/dist/index.html"
     }
   ]
 }
