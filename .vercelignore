@@ -1,0 +1,17 @@
+node_modules
+.git
+.cache
+.npm
+.local
+.config
+.cursor
+.cursor-server
+.aws
+.claude
+.bash_history
+.npmrc
+.gitconfig
+plan.md
+README.md
+.env
+.env.example

@@ -30,8 +30,7 @@
     "lint": "echo \"No linter configured\" && exit 0",
     "format": "echo \"No formatter configured\" && exit 0"
   },
-  "devDependencies": {
+  "dependencies": {
     "vite": "^5.0.0"
-  },
-  "dependencies": {}
+  }
 }
