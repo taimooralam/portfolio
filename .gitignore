@@ -115,3 +115,5 @@ temp/
 
 # Local user files
 .local/
+.vercel
+.vercelignore
