@@ -350,11 +350,11 @@ vercel --prod
    - **Install Command**: Set to `npm install` or `npm ci` for faster, reliable builds ✅ COMPLETE
    - **Development Command**: Set to `npm run dev` for preview deployments ✅ COMPLETE
 
-3. **Set Up Environment Variables** ⚠️ **OPTIONAL BUT RECOMMENDED**:
-   
+3. **Set Up Environment Variables** ✅ COMPLETE:
+
    **IMPORTANCE ANALYSIS:**
-   
-   **Current Status**: The project currently uses hardcoded values (title, contact info, etc.) and does NOT require environment variables to function. However, environment variables provide significant benefits for:
+
+   **Current Status**: ✅ Environment variables have been configured in `.env` file with comprehensive settings including app information, contact details, social links, analytics integration, and contact form setup. However, environment variables provide significant benefits for:
    
    - **Flexibility**: Easy content updates without code changes
    - **Security**: Keep sensitive data (API keys, contact info) out of source code
@@ -428,38 +428,100 @@ vercel --prod
    # 3. Redeploy to apply changes
    ```
 
-4. **Configure Project Settings in Vercel Dashboard**:
-   - **Framework Preset**: Select "Other" or "Vite" (if using Vite)
-   - **Root Directory**: Set to `.` (project root)
-   - **Build Command**: `npm run build` (if using Vite) or leave empty
-   - **Output Directory**: `dist` (for Vite) or `src` (for static)
-   - **Install Command**: `npm install`
+4. **Create Vercel Project** ⚠️ **DO THIS FIRST** (Before Dashboard Configuration):
 
-5. **Set Up Deployment Configuration**:
+   **PREREQUISITE**: You must create a Vercel project before you can configure settings in the dashboard.
+
+   **Step-by-Step Vercel Project Creation:**
+
    ```bash
-   # First, create a new Vercel project (if not already created)
+   # Run the Vercel CLI to create and link project
    vercel
-   
-   # Follow the prompts to:
-   # - Choose your Git repository
-   # - Set project name (e.g., "technical-lead-website")
-   # - Choose framework (select "Other" for static site)
-   # - Set root directory (use ".")
-   # - Set build command (leave empty for static files)
-   # - Set output directory (use "src" for static files)
-   
-   # After project creation, link your local project
-   vercel link
-   
-   # Configure deployment settings
-   vercel env add NODE_ENV production
-   vercel env add VITE_APP_TITLE "Technical Lead Portfolio"
-   
-   # Set up automatic deployments
-   vercel --prod
    ```
 
-6. **Configure Custom Domains (Future Use)**:
+   **Interactive Prompts - Answer as follows:**
+
+   | Prompt | Answer | Notes |
+   |--------|--------|-------|
+   | Set up and deploy? | `Y` | Confirms project creation |
+   | Which scope? | Select your account/team | Choose from list |
+   | Link to existing project? | `N` | Creating NEW project |
+   | What's your project's name? | `technical-lead-website` | Or your preferred name |
+   | In which directory is your code located? | `./` | Current directory |
+   | Want to override the settings? | `Y` | To configure build settings |
+   | Framework detected | Confirm `Vite` | Or select appropriate |
+   | Build Command | `npm run build` | For Vite builds |
+   | Output Directory | `dist` | Vite output folder |
+   | Install Command | `npm install` | Dependency installation |
+   | Development Command | `npm run dev` | Local dev server |
+
+   **What Happens During Creation:**
+   - ✅ Vercel creates a new project in your account
+   - ✅ Links your local directory to the Vercel project
+   - ✅ Creates `.vercel/` directory with project config (`project.json`, `README.txt`)
+   - ✅ Performs initial deployment (preview environment)
+   - ✅ Generates deployment URL (e.g., `https://your-project-xyz123.vercel.app`)
+   - ✅ Connects to GitHub repository (if already linked)
+
+   **Post-Creation Verification:**
+   ```bash
+   # Verify project was created
+   vercel ls
+
+   # Check project configuration
+   cat .vercel/project.json
+   ```
+
+   **Expected Output:**
+   ```
+   ✅ Linked to username/technical-lead-website (created .vercel)
+   ✅ Deployed to preview: https://technical-lead-website-xyz.vercel.app
+   ```
+
+   **Alternative - Link Existing Project:**
+   ```bash
+   # If project already exists in Vercel, just link it
+   vercel link
+   ```
+
+5. **Configure Project Settings in Vercel Dashboard** (After Creating Project):
+
+   **Access Dashboard Settings:**
+   1. Go to https://vercel.com/dashboard
+   2. Select your project (`technical-lead-website`)
+   3. Click **Settings** tab
+   4. Navigate to **Build & Development Settings**
+
+   **Verify/Configure These Settings:**
+   - **Framework Preset**: Verify `Vite` (auto-detected)
+   - **Root Directory**: Confirm `.` (project root)
+   - **Build Command**: Confirm `npm run build`
+   - **Output Directory**: Confirm `dist` (for Vite)
+   - **Install Command**: Confirm `npm install`
+   - **Development Command**: Confirm `npm run dev`
+
+   **Additional Dashboard Configuration:**
+   - **Node.js Version** → Select `18.x` or latest LTS
+   - **Environment Variables** → Add production variables (see substep 3)
+   - **Git Integration** → Ensure GitHub repo is connected
+   - **Deployment Protection** → Configure if needed (password, allowlist, etc.)
+   - **Function Region** → Select closest to target audience
+   - **Analytics** → Enable Web Analytics (optional)
+
+6. **Set Up Deployment Configuration**:
+   ```bash
+   # Configure environment variables via CLI
+   vercel env add NODE_ENV production
+   vercel env add VITE_APP_TITLE "Technical Lead Portfolio"
+
+   # Deploy to production
+   vercel --prod
+
+   # Verify deployment
+   vercel ls
+   ```
+
+7. **Configure Custom Domains (Future Use)**:
    Prepare for custom domain setup:
    ```bash
    # Add custom domain (when ready)
@@ -470,12 +532,12 @@ vercel --prod
    # Add A record: @ -> 76.76.19.61
    ```
 
-7. **Set Up Preview Deployments**:
+8. **Set Up Preview Deployments**:
    - Enable automatic preview deployments for pull requests
    - Configure branch-specific deployments
    - Set up preview environment variables
 
-8. **Configure Performance Optimizations**:
+9. **Configure Performance Optimizations**:
    ```json
    {
      "functions": {
@@ -496,12 +558,12 @@ vercel --prod
    }
    ```
 
-9. **Set Up Monitoring and Analytics**:
+10. **Set Up Monitoring and Analytics**:
    - Enable Vercel Analytics in dashboard
    - Configure Web Vitals monitoring
    - Set up error tracking (optional)
 
-10. **Test Deployment Configuration**:
+11. **Test Deployment Configuration**:
     ```bash
     # Test local build
     npm run build
@@ -515,43 +577,61 @@ vercel --prod
 
 **Commands to Complete Step 10:**
 ```bash
-# 1. Create vercel.json configuration (already done)
+# 1. Create vercel.json configuration ✅ COMPLETE
 # vercel.json file is already created with comprehensive configuration
 
-# 2. Create new Vercel project
+# 2. Configure build settings ✅ COMPLETE
+# Build settings configured in vercel.json
+
+# 3. Set up environment variables ✅ COMPLETE
+# .env file created with comprehensive variables
+
+# 4. Create new Vercel project (DO THIS NEXT)
 vercel
 
-# Follow the interactive prompts:
-# - Choose your Git repository (select your GitHub repo)
-# - Set project name: "technical-lead-website"
-# - Choose framework: "Other" (for static site)
-# - Set root directory: "." (current directory)
-# - Set build command: (leave empty for static files)
-# - Set output directory: "src" (for static files)
+# Follow the interactive prompts (see detailed substep 4 above):
+# - Set up and deploy? → Y
+# - Which scope? → Select your account
+# - Link to existing project? → N
+# - Project name → "technical-lead-website"
+# - Code directory → "./"
+# - Override settings? → Y
+# - Framework → Vite
+# - Build Command → npm run build
+# - Output Directory → dist
+# - Install Command → npm install
+# - Development Command → npm run dev
 
-# 3. Link project to Vercel (after project creation)
-vercel link
+# 5. Verify project creation
+vercel ls
+cat .vercel/project.json
 
-# 4. Configure environment variables
+# 6. Configure additional settings in Vercel Dashboard (see substep 5 above)
+# Go to https://vercel.com/dashboard → Select project → Settings
+
+# 7. Configure environment variables for production
 vercel env add NODE_ENV production
 vercel env add VITE_APP_TITLE "Technical Lead Portfolio"
 
-# 5. Deploy to production
+# 8. Deploy to production
 vercel --prod
 
-# 6. Verify deployment
+# 9. Verify deployment
 vercel ls
 ```
 
-**To Complete:**
-- Create comprehensive `vercel.json` with security headers, caching, and routing ✅ COMPLETE
-- Configure build settings for static site deployment ✅ COMPLETE
-- Set up environment variables for production ⚠️ **OPTIONAL** (see detailed analysis above)
-- Configure project settings in Vercel dashboard
-- Set up automatic deployments and preview environments
-- Prepare custom domain configuration for future use
-- Configure performance optimizations and monitoring
-- Test deployment configuration and verify functionality
+**Progress Summary:**
+- ✅ **Substep 1**: Create comprehensive `vercel.json` with security headers, caching, and routing - COMPLETE
+- ✅ **Substep 2**: Configure build settings for static site deployment - COMPLETE
+- ✅ **Substep 3**: Set up environment variables for production - COMPLETE (local `.env` file configured)
+- ⏳ **Substep 4**: Create Vercel project via CLI - **NEXT STEP** (run `vercel` command)
+- ⏳ **Substep 5**: Configure project settings in Vercel dashboard - PENDING (after substep 4)
+- ⏳ **Substep 6**: Set up deployment configuration - PENDING
+- ⏳ **Substep 7**: Configure custom domains - FUTURE USE
+- ⏳ **Substep 8**: Set up preview deployments - PENDING
+- ⏳ **Substep 9**: Configure performance optimizations - PENDING
+- ⏳ **Substep 10**: Set up monitoring and analytics - PENDING
+- ⏳ **Substep 11**: Test deployment configuration - PENDING
 
 ## Phase 4: CI/CD Pipeline Implementation
 
