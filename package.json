@@ -1,22 +1,12 @@
 {
-  "name": "technical-lead-website",
-  "version": "1.0.0",
-  "description": "Professional technical lead portfolio website",
-  "main": "src/index.html",
+  "name": "taimoor-alam-portfolio",
+  "version": "2.0.0",
+  "description": "Engineering Leader / Software Architect Portfolio",
   "private": true,
-  "author": "Your Name <your.email@domain.com>",
+  "type": "module",
+  "author": "Taimoor Alam <alamtaimoor.de@gmail.com>",
   "license": "MIT",
-  "homepage": "https://your-domain.com",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/yourusername/technical-lead-website.git"
-  },
-  "keywords": [
-    "portfolio",
-    "technical-lead",
-    "website",
-    "frontend"
-  ],
+  "homepage": "https://taimooralam.dev",
   "engines": {
     "node": ">=18.0.0",
     "npm": ">=9.0.0"
@@ -25,12 +15,20 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "start": "vite preview --port 3000",
-    "test": "echo \"No tests specified\" && exit 0",
-    "lint": "echo \"No linter configured\" && exit 0",
-    "format": "echo \"No formatter configured\" && exit 0"
+    "start": "vite preview --port 3000"
   },
   "dependencies": {
-    "vite": "^5.0.0"
+    "framer-motion": "^11.11.17",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.3",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.15",
+    "vite": "^5.4.11"
   }
 }
