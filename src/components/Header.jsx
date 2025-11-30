@@ -65,10 +65,13 @@ export default function Header() {
           <motion.a
             href="#home"
             onClick={(e) => handleNavClick(e, '#home')}
-            className="text-xl font-bold gradient-text"
+            className="flex items-center gap-3"
             whileHover={{ scale: 1.02 }}
           >
-            {profile.name.split(' ')[0]}
+            <img src="/logo.svg" alt="TA" className="w-10 h-10 rounded-lg" />
+            <span className="text-xl font-bold gradient-text hidden sm:inline">
+              {profile.name.split(' ')[0]}
+            </span>
           </motion.a>
 
           {/* Desktop Navigation */}
