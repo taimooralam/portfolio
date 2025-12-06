@@ -49,9 +49,11 @@ export const experience = [
     period: "2020–Present",
     highlights: [
       "Led multi-year transformation of AdTech platform processing millions of impressions daily into event-driven microservices",
-      "Achieved 75% incident reduction and zero downtime for 3 years",
-      "Architected real-time data pipeline processing billions of events daily",
-      "Led GDPR/TCF compliance protecting €30M annual revenue"
+      "Achieved 75% incident reduction and zero downtime for 3 years through architectural runway strategy",
+      "Architected real-time observability pipeline processing billions of events daily with 10x cost reduction",
+      "Led GDPR/TCF compliance as first-movers in EU for TCF-approved CMP, protecting €30M revenue",
+      "Mentored 10+ senior engineers, promoted 3 to lead positions with low turnover",
+      "Introduced DDD framework reducing onboarding from 6 to 3 months and improving velocity by 25%"
     ]
   },
   {
@@ -60,9 +62,10 @@ export const experience = [
     location: "Munich, DE",
     period: "2019–2020",
     highlights: [
-      "Architected event-sourced CRM platform using CQRS with NestJS/TypeScript",
-      "Led cross-functional SCRUM team of 4 engineers",
-      "Established 85% code coverage with comprehensive testing"
+      "Architected event-sourced CRM platform (0→1) using CQRS with NestJS/TypeScript and EventStore",
+      "Led event storming workshops for domain discovery and bounded context definition",
+      "Led cross-functional SCRUM team of 4 engineers, improving sprint velocity by 30%",
+      "Established 85% code coverage reducing bugs by 40%, designed APIs with Swagger for 50% faster integrations"
     ]
   },
   {
@@ -93,8 +96,10 @@ export const experience = [
     location: "Munich, DE",
     period: "2016–2018",
     highlights: [
-      "Extended CoAP protocol with OSCOAP security for IoT",
-      "Built cross-platform Qt/C++ control application"
+      "Built cross-platform Qt/C++ application for IoT lighting control, used extensively for business demonstrations",
+      "Developed Python CoAP-to-UDP middleware enabling third-party device integration",
+      "Enhanced Erbium CoAP with OSCOAP security features for secure multicast communication",
+      "Integrated legacy OSRAM products with modern OpenAIS ecosystem"
     ]
   },
   {
@@ -103,8 +108,10 @@ export const experience = [
     location: "Islamabad, PK",
     period: "2014–2016",
     highlights: [
-      "Developed WebRTC video recording solution",
-      "Reduced video processing time by 40%"
+      "Developed WebRTC video recording system using Licode and FFmpeg, securing contract renewal",
+      "Built Node.js playback service with WebSocket sync for multi-party call compliance review",
+      "Reverse-engineered and enhanced OpenPhone SIP client with Qt C++ for custom call management",
+      "Created C# WPF onboarding tutorial system with voice narration reducing support requests"
     ]
   }
 ];
