@@ -2,15 +2,15 @@ export const profile = {
   name: "Taimoor Alam",
   title: "Engineering Leader / Software Architect",
   tagline: "Cloud | AdTech | DDD | Leadership",
-  summary: "Engineering leader with 11+ years building high-scale distributed systems and 5+ years managing cross-functional teams in AdTech and SaaS environments. Expert in modernizing legacy architectures through Domain-Driven Design and event-driven microservices, delivering 75% incident reduction and 25% faster delivery. Proven track record architecting AI-powered solutions, implementing observability at billions-per-day scale, and driving technical strategy that preserved €30M revenue through GDPR compliance.",
+  summary: "Engineering leader with 11+ years building high-scale distributed systems and 5+ years managing cross-functional teams in AdTech and SaaS environments. Expert in modernizing legacy architectures through Domain-Driven Design and event-driven microservices, achieving 75% incident reduction, 3 years zero downtime, and 50% faster onboarding. Proven track record mentoring 10+ engineers (3 promoted to leads), implementing observability at billions-per-day scale, and driving technical strategy that preserved €30M revenue through GDPR/TCF compliance.",
   location: "German National | International relocation ready (Hybrid, 2 months notice)",
   email: "alamtaimoor.de@gmail.com",
   phone: "+49 176 2979 3925",
   linkedin: "linkedin.com/in/taimooralam",
   languages: ["English (C1)", "German (B2)", "Urdu (Native)"],
   education: {
-    masters: "M.Sc. Computer Science - Technical University of Munich",
-    bachelors: "B.Sc. Computer Software Engineering - GIK Institute"
+    masters: "M.Sc. Computer Science — Technical University of Munich",
+    bachelors: "B.Sc. Computer Software Engineering — GIK Institute"
   },
   certifications: ["AWS Essentials", "ECS & Multi-Region LB", "Data Scientist's Toolbox", "R Programming"]
 };
@@ -374,11 +374,11 @@ export const projects = [
 
 export const featuredMetrics = [
   { value: "75%", label: "Incident Reduction", context: "AdTech Platform Modernization" },
-  { value: "€30M", label: "Revenue Protected", context: "GDPR Compliance Leadership" },
+  { value: "€30M", label: "Revenue Protected", context: "GDPR/TCF Compliance" },
   { value: "3 Years", label: "Zero Downtime", context: "System Reliability" },
   { value: "Billions", label: "Events/Day", context: "Data Pipeline Scale" },
   { value: "10x", label: "Cost Reduction", context: "Infrastructure Optimization" },
-  { value: "~20%", label: "Revenue Growth", context: "Innovation Initiatives" },
-  { value: "50%", label: "Faster Onboarding", context: "Team Efficiency" },
-  { value: "100x", label: "Burst Capacity", context: "Scalability Engineering" }
+  { value: "60%", label: "MTTR Reduction", context: "Monitoring & Incident Management" },
+  { value: "50%", label: "Faster Onboarding", context: "DDD Framework Adoption" },
+  { value: "10+", label: "Engineers Mentored", context: "Team Development" }
 ];
