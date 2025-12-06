@@ -288,24 +288,24 @@ export const projects = [
   },
   {
     id: "crm-platform",
-    title: "CRM Platform Architecture & Launch",
-    company: "DAYPAIO GmbH",
+    title: "Event-Sourced CRM Platform (0→1)",
+    company: "Samdock (Daypaio)",
     period: "2019–2020",
     domains: ["CRM", "SaaS", "Event-Driven Architecture"],
-    keyMetric: { value: "On-time", label: "Market Launch" },
-    situation: "Startup building greenfield CRM platform requiring scalable architecture and rapid market delivery.",
-    task: "Spearhead end-to-end architecture and market launch as Tech Lead.",
+    keyMetric: { value: "25", label: "Production Tenants" },
+    situation: "Early-stage startup building greenfield CRM platform requiring scalable event-sourced architecture and rapid market delivery.",
+    task: "Architect and launch event-sourced CRM platform from inception to production as Lead Engineer.",
     actions: [
-      "Designed event-driven microservices with NestJS and EventStore",
-      "Implemented CQRS pattern for scalability",
-      "Led Angular front-end with reusable component library"
+      "Led event storming workshops with stakeholders for domain discovery and bounded contexts",
+      "Designed event-driven microservices with NestJS, TypeScript, and EventStore using CQRS pattern",
+      "Established engineering standards with 85% test coverage and reusable Angular component library"
     ],
     results: [
-      "Launched platform to market within deadline",
-      "Achieved high code quality with comprehensive testing",
-      "Developed junior engineers into productive contributors"
+      "Launched platform with 25 production tenants within startup timeline",
+      "Reduced bugs by 40% through comprehensive testing strategy",
+      "Mentored junior engineer to mid-level promotion within 12 months"
     ],
-    skills: ["NestJS", "TypeScript", "EventStore", "CQRS", "Event Sourcing", "Angular"]
+    skills: ["NestJS", "TypeScript", "EventStore", "CQRS", "Event Sourcing", "Angular", "Event Storming"]
   },
   {
     id: "backend-services",
@@ -348,6 +348,27 @@ export const projects = [
       "Application extensively used for business demonstrations"
     ],
     skills: ["CoAP", "OSCOAP", "C/C++", "Qt", "QML", "Python", "IoT"]
+  },
+  {
+    id: "video-conferencing",
+    title: "WebRTC Video Recording & Playback System",
+    company: "Clary Icon",
+    period: "2014–2016",
+    domains: ["Real-Time Communications", "Video Processing", "Full-Stack"],
+    keyMetric: { value: "Contract", label: "Renewal Secured" },
+    situation: "Enterprise video conferencing platform required call recording for compliance and multi-party playback capabilities.",
+    task: "Design and implement WebRTC recording system and synchronized playback service for compliance review.",
+    actions: [
+      "Developed WebRTC recording solution using Licode media server with custom REST APIs",
+      "Built FFmpeg transcoding pipeline for format conversion and storage",
+      "Engineered Node.js playback service with WebSocket-based timestamp synchronization"
+    ],
+    results: [
+      "Delivered client-critical feature that secured contract renewal and continued funding",
+      "Enabled compliance and quality review through synchronized multi-party call playback",
+      "Demonstrated cross-platform polyglot capability (Node.js, C++, C#)"
+    ],
+    skills: ["WebRTC", "Licode", "FFmpeg", "Node.js", "WebSocket", "REST API", "MySQL"]
   }
 ];
 
