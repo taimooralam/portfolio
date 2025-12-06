@@ -25,19 +25,19 @@ export const heroStats = [
 export const skills = {
   leadership: {
     title: "Leadership & Strategy",
-    items: ["Engineering Management", "Team Scaling", "Talent Development", "Performance Reviews", "Cross-functional Collaboration", "Stakeholder Management", "Hiring & Onboarding"]
+    items: ["Technical Leadership", "Team Building & Mentoring", "Hiring & Interviewing", "Strategic Planning", "Stakeholder Management", "Risk Analysis", "Blameless Postmortems", "Innovation Culture"]
   },
   architecture: {
-    title: "AI & Architecture",
-    items: ["Agentic AI", "Event-Driven Microservices", "Domain-Driven Design", "CQRS", "Distributed Systems", "Cloud-Native Architecture", "Legacy Modernization"]
+    title: "Architecture & Design",
+    items: ["Event-Driven Architecture", "Domain-Driven Design", "CQRS/Event Sourcing", "Microservices", "Cloud-Native Architecture", "Legacy Modernization", "Agentic AI"]
   },
   platform: {
     title: "Platform & Scale",
-    items: ["AWS (Lambda, ECS, Kinesis)", "Node.js/TypeScript", "Python", "Real-time Data Processing", "Observability", "High Availability", "Fault Tolerance"]
+    items: ["AWS (Lambda, ECS, EventBridge, S3)", "Node.js/TypeScript", "Python", "OpenSearch", "Terraform/Serverless", "Observability", "High Availability"]
   },
   delivery: {
-    title: "Delivery & Innovation",
-    items: ["Agile/SCRUM", "CI/CD", "Test-Driven Development", "Data-Driven Decision Making", "Technical Debt Reduction", "Architecture Governance"]
+    title: "Delivery & Quality",
+    items: ["Agile/SCRUM", "CI/CD Pipelines", "Test-Driven Development", "Technical Debt Strategy", "GDPR/TCF Compliance", "Event Storming", "Architecture Governance"]
   }
 };
 
