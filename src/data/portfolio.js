@@ -71,8 +71,20 @@ export const experience = [
     location: "Munich, DE",
     period: "2018–2019",
     highlights: [
-      "Built REST APIs in Flask with onion architecture",
-      "Implemented MongoDB optimizations reducing query times by 60%"
+      "Built REST APIs in Flask with onion architecture and JWT authentication",
+      "Implemented MongoDB optimizations reducing query times by 60%",
+      "Developed comprehensive testing strategy reducing production incidents by 35%"
+    ]
+  },
+  {
+    role: "Backend Engineer",
+    company: "Fortis (Research Project)",
+    location: "Munich, DE",
+    period: "2018",
+    highlights: [
+      "Designed Node.js microservices architecture for research platform",
+      "Implemented RabbitMQ pub/sub messaging for asynchronous service communication",
+      "Established API standards with Swagger documentation"
     ]
   },
   {
