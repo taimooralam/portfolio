@@ -1,7 +1,7 @@
 export const profile = {
   name: "Taimoor Alam",
   title: "Engineering Leader / Software Architect",
-  tagline: "Cloud | AdTech | DDD | Leadership",
+  tagline: "AI Platforms | Cloud Architecture | Technical Leadership | Enterprise IoT",
   summary: "Engineering leader with 11+ years building high-scale distributed systems and 5+ years managing cross-functional teams in AdTech and SaaS environments. Expert in modernizing legacy architectures through Domain-Driven Design and event-driven microservices, achieving 75% incident reduction, 3 years zero downtime, and 50% faster onboarding. Proven track record mentoring 10+ engineers (3 promoted to leads), implementing observability at billions-per-day scale, and driving technical strategy that preserved €30M revenue through GDPR/TCF compliance.",
   location: "German National | International relocation ready (Hybrid, 2 months notice)",
   email: "alamtaimoor.de@gmail.com",
@@ -12,7 +12,7 @@ export const profile = {
     masters: "M.Sc. Computer Science — Technical University of Munich",
     bachelors: "B.Sc. Computer Software Engineering — GIK Institute"
   },
-  certifications: ["AWS Essentials", "ECS & Multi-Region LB", "Data Scientist's Toolbox", "R Programming"]
+  certifications: ["TOGAF 10 (In Progress)", "DeepLearning.AI Agentic AI (In Progress)", "AWS Essentials", "ECS & Multi-Region LB"]
 };
 
 export const heroStats = [
@@ -23,13 +23,17 @@ export const heroStats = [
 ];
 
 export const skills = {
+  ai_platforms: {
+    title: "AI Platform Architecture",
+    items: ["Agentic AI", "RAG Systems", "LangGraph", "MCP Protocol", "AI Governance (4 Pillars)", "Multi-Agent Orchestration"]
+  },
   leadership: {
     title: "Leadership & Strategy",
     items: ["Technical Leadership", "Team Building & Mentoring", "Hiring & Interviewing", "Strategic Planning", "Stakeholder Management", "Risk Analysis", "Blameless Postmortems", "Innovation Culture"]
   },
   architecture: {
     title: "Architecture & Design",
-    items: ["Event-Driven Architecture", "Domain-Driven Design", "CQRS/Event Sourcing", "Microservices", "Cloud-Native Architecture", "Legacy Modernization", "Agentic AI"]
+    items: ["Event-Driven Architecture", "Domain-Driven Design", "CQRS/Event Sourcing", "Microservices", "Cloud-Native Architecture", "Legacy Modernization"]
   },
   platform: {
     title: "Platform & Scale",
@@ -43,7 +47,7 @@ export const skills = {
 
 export const experience = [
   {
-    role: "Technical Lead (Addressable TV)",
+    role: "Technical Lead / Software Architect (Addressable TV)",
     company: "Seven.One Entertainment Group",
     location: "Munich, DE",
     period: "2020–Present",
@@ -117,6 +121,29 @@ export const experience = [
 ];
 
 export const projects = [
+  {
+    id: "job-intelligence-pipeline",
+    title: "Job Intelligence Pipeline - Agentic AI System",
+    company: "Personal Project",
+    period: "2025–Present",
+    domains: ["Agentic AI", "RAG Systems", "Full-Stack Engineering"],
+    keyMetric: { value: "70K+", label: "Lines of Code" },
+    situation: "Job searching requires processing hundreds of job descriptions, researching companies, tailoring CVs, and crafting personalized outreach—a time-consuming manual process.",
+    task: "Build an end-to-end agentic AI pipeline that automates job intelligence gathering, analysis, and personalized content generation.",
+    actions: [
+      "Architected 7-layer LangGraph pipeline: JD analysis → Pain points → Company research → Opportunity mapping → People mapping → CV tailoring → Output publishing",
+      "Implemented RAG system with MongoDB vector search for knowledge retrieval and achievement matching",
+      "Built production patterns: circuit breaker, rate limiter, structured logging, LangSmith observability",
+      "Developed full-stack application with FastAPI backend, Flask frontend, and microservice architecture"
+    ],
+    results: [
+      "Processing job descriptions through 7 specialized AI agents with full traceability",
+      "Automated CV tailoring with ATS optimization and role-specific achievement selection",
+      "Production-grade observability via LangSmith tracing across all pipeline layers",
+      "Active daily use for personal job search with measurable time savings"
+    ],
+    skills: ["LangGraph", "RAG", "MongoDB", "FastAPI", "Claude API", "Python", "AI Governance", "MCP Protocol"]
+  },
   {
     id: "platform-modernization",
     title: "Platform Modernization - Monolith to Microservices",
