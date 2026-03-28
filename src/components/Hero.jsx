@@ -61,10 +61,10 @@ export default function Hero() {
               {/* Status indicator */}
               <div className="absolute bottom-4 right-4 flex items-center gap-2 px-3 py-1.5 rounded-full bg-white dark:bg-primary-800 shadow-lg border border-primary-200 dark:border-primary-700">
                 <span className="relative flex h-2.5 w-2.5">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500"></span>
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-accent-500"></span>
                 </span>
-                <span className="text-xs font-medium text-primary-700 dark:text-primary-300">Open to work</span>
+                <span className="text-xs font-medium text-primary-700 dark:text-primary-300">Available for consulting & roles</span>
               </div>
             </motion.div>
 
@@ -114,10 +114,10 @@ export default function Hero() {
                 className="flex flex-wrap items-center justify-center lg:justify-start gap-4 mb-6"
               >
                 <a href="#contact" className="btn-primary">
-                  Get In Touch
+                  Discuss a Project
                 </a>
                 <a href="#projects" className="btn-secondary">
-                  View Projects
+                  View Systems
                 </a>
                 <a
                   href={`https://${profile.linkedin}`}
@@ -130,6 +130,23 @@ export default function Hero() {
                   </svg>
                   LinkedIn
                 </a>
+              </motion.div>
+
+              {/* Brainlancer Credibility Badge */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.45 }}
+                className="flex flex-wrap items-center justify-center lg:justify-start gap-3 mb-4"
+              >
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent-500/10 border border-accent-500/20">
+                  <svg className="w-4 h-4 text-accent-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span className="text-sm font-medium text-primary-700 dark:text-primary-300">
+                    Selected for Brainlancer (top 0.4% of 4,500+ applicants)
+                  </span>
+                </div>
               </motion.div>
 
               {/* Location */}

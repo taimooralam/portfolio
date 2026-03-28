@@ -45,6 +45,24 @@ export default function About() {
                 </div>
               </div>
 
+              {/* Currently */}
+              <div>
+                <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+                  <svg className="w-5 h-5 text-accent-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
+                  Currently
+                </h3>
+                <div className="space-y-2 text-sm">
+                  <p className="font-medium text-primary-900 dark:text-primary-100">
+                    Selected AI builder on Brainlancer
+                  </p>
+                  <p className="font-medium text-primary-900 dark:text-primary-100">
+                    Building Lantern (open-source LLM gateway)
+                  </p>
+                </div>
+              </div>
+
               {/* Languages */}
               <div>
                 <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
@@ -60,6 +78,36 @@ export default function About() {
                     </span>
                   ))}
                 </div>
+              </div>
+
+              {/* What I Do */}
+              <div className="md:col-span-2">
+                <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+                  <svg className="w-5 h-5 text-accent-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                  What I Do
+                </h3>
+                <ul className="space-y-2 text-sm text-primary-600 dark:text-primary-400">
+                  <li className="flex items-start gap-2">
+                    <svg className="w-4 h-4 text-accent-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    Production AI Architecture — LLM gateways, evaluation, caching, governance
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <svg className="w-4 h-4 text-accent-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    System Design & Review — architecture audits, production blueprints, roadmaps
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <svg className="w-4 h-4 text-accent-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    Engineering Leadership — team building, mentoring, technical strategy
+                  </li>
+                </ul>
               </div>
 
               {/* Certifications */}

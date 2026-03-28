@@ -1,18 +1,19 @@
 export const profile = {
   name: "Taimoor Alam",
-  title: "Engineering Leader / Software Architect",
-  tagline: "AI Platforms | Cloud Architecture | Technical Leadership | Enterprise IoT",
-  summary: "Engineering leader with 11+ years building high-scale distributed systems and 5+ years managing cross-functional teams in AdTech and SaaS environments. Expert in modernizing legacy architectures through Domain-Driven Design and event-driven microservices, achieving 75% incident reduction, 3 years zero downtime, and 50% faster onboarding. Proven track record mentoring 10+ engineers (3 promoted to leads), implementing observability at billions-per-day scale, and driving technical strategy that preserved €30M revenue through GDPR/TCF compliance.",
-  location: "German National | International relocation ready (Hybrid, 2 months notice)",
+  title: "AI Architect | Production LLM Systems",
+  tagline: "LLM Reliability | Evaluation & Governance | RAG | Agentic AI | 11yr Platform Engineering",
+  summary: "I help companies ship AI that doesn't break. After 11 years building zero-downtime platforms processing billions of events at scale, I now design production AI systems — LLM quality gateways, evaluation harnesses, semantic caching, and governance-ready architecture. I've built enterprise AI platforms serving 2,000 users with hybrid retrieval, automated evaluation, and cost optimization. Currently available for AI architecture consulting and engineering leadership roles.",
+  location: "Germany | Available for consulting and full-time roles",
   email: "alamtaimoor.de@gmail.com",
   phone: "+49 176 2979 3925",
   linkedin: "linkedin.com/in/taimooralam",
+  github: "github.com/taimooralam",
   languages: ["English (C1)", "German (B2)", "Urdu (Native)"],
   education: {
     masters: "M.Sc. Computer Science — Technical University of Munich",
     bachelors: "B.Sc. Computer Software Engineering — GIK Institute"
   },
-  certifications: ["TOGAF 10 (In Progress)", "DeepLearning.AI Agentic AI (In Progress)", "AWS Essentials", "ECS & Multi-Region LB"]
+  certifications: ["AWS Essentials", "ECS & Multi-Region LB"]
 };
 
 export const heroStats = [
@@ -24,24 +25,20 @@ export const heroStats = [
 
 export const skills = {
   ai_platforms: {
-    title: "AI Platform Architecture",
-    items: ["Agentic AI", "RAG Systems", "LangGraph", "MCP Protocol", "AI Governance (4 Pillars)", "Multi-Agent Orchestration"]
+    title: "AI & LLM Engineering",
+    items: ["LLM Quality Gateways", "RAG Systems (Hybrid Search)", "Agentic AI (LangGraph)", "Evaluation Harnesses", "Semantic Caching", "AI Governance (EU AI Act)", "Langfuse Observability", "Multi-Provider Routing"]
   },
   leadership: {
     title: "Leadership & Strategy",
-    items: ["Technical Leadership", "Team Building & Mentoring", "Hiring & Interviewing", "Strategic Planning", "Stakeholder Management", "Risk Analysis", "Blameless Postmortems", "Innovation Culture"]
+    items: ["Technical Leadership", "Team Building & Mentoring", "Hiring & Interviewing", "Stakeholder Management", "Blameless Postmortems", "Innovation Culture"]
   },
   architecture: {
     title: "Architecture & Design",
-    items: ["Event-Driven Architecture", "Domain-Driven Design", "CQRS/Event Sourcing", "Microservices", "Cloud-Native Architecture", "Legacy Modernization"]
+    items: ["Event-Driven Architecture", "Domain-Driven Design", "Microservices", "Cloud-Native Architecture", "Legacy Modernization", "CQRS/Event Sourcing"]
   },
   platform: {
-    title: "Platform & Scale",
-    items: ["AWS (Lambda, ECS, EventBridge, S3)", "Node.js/TypeScript", "Python", "OpenSearch", "Terraform/Serverless", "Observability", "High Availability"]
-  },
-  delivery: {
-    title: "Delivery & Quality",
-    items: ["Agile/SCRUM", "CI/CD Pipelines", "Test-Driven Development", "Technical Debt Strategy", "GDPR/TCF Compliance", "Event Storming", "Architecture Governance"]
+    title: "Platform & Infrastructure",
+    items: ["AWS (Lambda, ECS, EventBridge)", "Python · FastAPI · Pydantic", "TypeScript · Node.js", "Docker · CI/CD", "MongoDB · Redis · Qdrant", "Prometheus · Grafana · OpenSearch"]
   }
 };
 

@@ -54,7 +54,7 @@ export default function Metrics() {
         >
           <h2 className="text-heading text-3xl md:text-4xl font-bold mb-4">Impact by Numbers</h2>
           <p className="text-primary-600 dark:text-primary-400 mb-6">
-            Quantified achievements across engineering leadership
+            Production AI — measured, not claimed
           </p>
           <div className="w-20 h-1 bg-accent-500 mx-auto rounded-full" />
         </motion.div>
