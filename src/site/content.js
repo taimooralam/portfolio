@@ -61,6 +61,8 @@ export const logos = [
 ];
 
 // The four stories are decided by title only; their words come from business#86 (not written yet).
+// His pick, 2026-10-14 (#10, option A of three): the heading above the four stories.
+export const storiesHeading = "Business problems I've solved";
 export const stories = [
   'Seven.One TV advertising platform',
   'Seven.One AI platform',

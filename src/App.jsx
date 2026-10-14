@@ -130,7 +130,7 @@ export default function App() {
         </section>
 
         <section className="mt-16 lg:mt-24">
-          <h2 id="stories-heading" className={eyebrow}><Gap>heading for the four stories</Gap></h2>
+          <h2 id="stories-heading" className={eyebrow}>{c.storiesHeading}</h2>
           <div
             role="region" aria-labelledby="stories-heading" tabIndex={0}
             className="-mx-5 mt-6 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-4 sm:-mx-10 sm:px-10 lg:mx-0 lg:grid lg:grid-cols-2 lg:overflow-visible lg:px-0"
