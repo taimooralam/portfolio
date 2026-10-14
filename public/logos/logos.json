@@ -1,0 +1,101 @@
+{
+  "about": "Logos of the companies Taimoor Alam worked for or with, for taimooralam.com and for job-search documents. Served at https://taimooralam.com/logos/<file>. Each company has <slug>.svg for light backgrounds and <slug>-on-dark.svg for dark ones. Built 2026-10-14 (portfolio#7). 'source' says where the logo came from; 'how' says whether the file is the original, a recolour of it, or a vector trace of a raster original.",
+  "logos": [
+    {
+      "slug": "golden_river",
+      "company": "Golden River",
+      "cv_slug": null,
+      "note": "His own company. Added at his request, 2026-10-14.",
+      "files": ["golden_river.svg", "golden_river-on-dark.svg"],
+      "source": "goldenriver-site/assets/brand/lockup.svg (his brand master)",
+      "how": "light: original. on-dark: the dark-brown name recoloured to the brand's cream #F5EFE7, as in lockup-on-dark.svg but without its background."
+    },
+    {
+      "slug": "seven_one",
+      "company": "Seven.One Entertainment Group (ProSiebenSat.1)",
+      "cv_slug": "seven_one",
+      "files": ["seven_one.svg", "seven_one-on-dark.svg"],
+      "source": "https://commons.wikimedia.org/wiki/File:Seven_One_Entertainment_Group_Logo_2020.svg",
+      "how": "original; the red reads on both grounds, so both files are the same."
+    },
+    {
+      "slug": "prosiebensat1",
+      "company": "ProSiebenSat.1 Media SE",
+      "cv_slug": "seven_one",
+      "note": "Seven.One's parent. In the library, not in the site's strip.",
+      "files": ["prosiebensat1.svg", "prosiebensat1-on-dark.svg"],
+      "source": "https://commons.wikimedia.org/wiki/File:ProSiebenSat.1_Media_SE_Logo.svg",
+      "how": "light: original. on-dark: black lettering recoloured white."
+    },
+    {
+      "slug": "samdock",
+      "company": "Samdock (DAYPAIO)",
+      "cv_slug": "samdock",
+      "note": "He named the Samdock logo for DAYPAIO, 2026-10-14. samdock.com is today run by Samdock.ONE GmbH; this is the logo it has used since 2022.",
+      "files": ["samdock.svg", "samdock-on-dark.svg"],
+      "source": "https://samdock.com/wp-content/uploads/2022/04/Samdock_logo.png, via web.archive.org snapshot 20220523024743 (796x103 PNG, white wordmark)",
+      "how": "vector trace of the PNG; the D's gradient sampled from it (#ff73c2 to #faa774). on-dark: original white wordmark. light: wordmark recoloured #1a1a1a."
+    },
+    {
+      "slug": "mercedes_benz_group",
+      "company": "Mercedes-Benz Group (Daimler AG at the time)",
+      "cv_slug": "ki_labs",
+      "note": "Shown for KI Labs: he worked externally on a Daimler project (decided on business#74 Q15, confirmed 2026-10-14).",
+      "files": ["mercedes_benz_group.svg", "mercedes_benz_group-on-dark.svg"],
+      "source": "https://commons.wikimedia.org/wiki/File:Mercedes-Benz_Group_black.svg and File:Mercedes-Benz_Group.svg",
+      "how": "originals: the black file for light grounds, the white file for dark."
+    },
+    {
+      "slug": "fortiss",
+      "company": "fortiss",
+      "cv_slug": "fortis",
+      "note": "Added at his request, 2026-10-14. The master CV spells it 'Fortis (Research Project)'.",
+      "files": ["fortiss.svg", "fortiss-on-dark.svg"],
+      "source": "https://www.fortiss.org/_assets/a53ffab7c1daf14e378caa1cb77f91d4/Images/fortiss-logo.png (600x180 PNG, white)",
+      "how": "vector trace of the PNG. on-dark: original white. light: recoloured #1a1a1a."
+    },
+    {
+      "slug": "osram",
+      "company": "OSRAM",
+      "cv_slug": "osram",
+      "files": ["osram.svg", "osram-on-dark.svg"],
+      "source": "https://commons.wikimedia.org/wiki/File:Osram_Logo.svg",
+      "how": "original; a viewBox added so it scales. Both files the same."
+    },
+    {
+      "slug": "gorillabox",
+      "company": "Gorillabox",
+      "cv_slug": "gorillabox",
+      "files": ["gorillabox-on-dark.svg"],
+      "source": "https://www.gorillabox.net/img/gorilla-box_logo_dark-bg.png, via web.archive.org snapshot 20190503215720 (629x375 PNG)",
+      "how": "vector trace of the PNG, colours sampled from it (#373736, #94c11f, #ffffff). The only original found is for dark grounds, so there is no light version."
+    },
+    {
+      "slug": "onescreen",
+      "company": "OneScreen (Clary Icon)",
+      "cv_slug": "clary_icon",
+      "note": "He named the OneScreen logo for Clary Icon, 2026-10-14. OneScreen's site names Clary as its parent company.",
+      "files": ["onescreen.svg", "onescreen-on-dark.svg"],
+      "source": "https://www.onescreensolutions.com/wp-content/uploads/2025/10/OneScreen-header-logo.svg",
+      "how": "light: original (#6F3393). on-dark: recoloured white."
+    },
+    {
+      "slug": "techlogix",
+      "company": "Techlogix",
+      "cv_slug": null,
+      "note": "Added at his request, 2026-10-14. Not in the master CV.",
+      "files": ["techlogix.svg", "techlogix-on-dark.svg"],
+      "source": "https://www.techlogix.com/wp-content/uploads/2019/01/techxlogo.png (332x85 PNG)",
+      "how": "vector trace of the PNG, colours sampled from it. on-dark: the dark greys lightened, red lifted to #c0464b."
+    },
+    {
+      "slug": "lmkt",
+      "company": "LMKT",
+      "cv_slug": null,
+      "note": "Added at his request, 2026-10-14. Not in the master CV.",
+      "files": ["lmkt.svg", "lmkt-on-dark.svg"],
+      "source": "https://lmkt.com/wp-content/uploads/2017/08/logo-white.png (128x59 PNG, white with teal)",
+      "how": "vector trace of a small PNG, so edges are approximate. on-dark: original colours. light: white recoloured #1a1a1a, teal deepened to #3fa9a5."
+    }
+  ]
+}
