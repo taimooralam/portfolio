@@ -1,12 +1,11 @@
-// PROTOTYPE — Variant B, "Cinematic": dark, the whiteboard photo fills the first screen
-// with the words laid over it; on wide screens the photo stays put on the left while the
-// page scrolls beside it. Statements light up as they reach the middle of the screen,
-// the logos drift past in a strip, the stories swipe sideways, and the $500 button
-// follows you down the page once the first screen is gone.
+// PROTOTYPE — Variant B, "Cinematic": dark, one centred column. No whiteboard photo for
+// now (his call, 2026-10-14); the round photo by his name stays. Statements light up as
+// they reach the middle of the screen, the logos drift past in a strip, the stories swipe
+// sideways, and the $500 button follows you down the page once the opening is gone.
 import { useEffect, useRef, useState } from 'react';
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import * as c from './content';
-import { Opening, Gap, WhiteboardStandIn, Reveal, MovingLine } from './shared';
+import { Opening, Gap, Reveal, MovingLine } from './shared';
 
 export const label = 'Cinematic';
 
@@ -64,31 +63,16 @@ function LogoStrip() {
 export default function VariantB() {
   const [past, setPast] = useState(false);
   const heroRef = useRef(null);
-  const wideHeroRef = useRef(null);
   useEffect(() => {
-    const seen = new Map();
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((e) => seen.set(e.target, e.isIntersecting));
-      setPast(![...seen.values()].some(Boolean));
-    }, { threshold: 0 });
+    const io = new IntersectionObserver(([e]) => setPast(!e.isIntersecting), { threshold: 0 });
     io.observe(heroRef.current);
-    io.observe(wideHeroRef.current);
     return () => io.disconnect();
   }, []);
 
   return (
-    <div className="min-h-screen bg-neutral-950 font-sans text-neutral-200 lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)]">
-      {/* Photo: the whole first screen on a phone, a fixed panel on wide screens. */}
-      <div className="relative h-[100svh] lg:sticky lg:top-0">
-        <WhiteboardStandIn tone="dark" className="absolute inset-x-0 top-0 h-[55%] lg:h-full" />
-        <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 from-40% via-neutral-950/60 via-60% to-transparent lg:from-0% lg:via-transparent" />
-        <div ref={heroRef} className="absolute inset-x-0 bottom-0 px-5 pb-10 sm:px-10 lg:hidden">
-          <Hero />
-        </div>
-      </div>
-
-      <div className="px-5 sm:px-10 lg:py-16">
-        <div ref={wideHeroRef} className="hidden lg:block"><Hero /></div>
+    <div className="min-h-screen bg-neutral-950 font-sans text-neutral-200">
+      <div className="mx-auto max-w-2xl px-5 pt-12 sm:px-10 lg:pt-20">
+        <div ref={heroRef}><Hero /></div>
 
         <div className="mt-16 lg:mt-24">
           <MovingLine
