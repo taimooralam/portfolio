@@ -150,6 +150,7 @@ export default function VariantB() {
         </section>
 
         <Reveal as="section" className="mt-16 max-w-2xl lg:mt-24">
+          <h2 className="sr-only">What I write about</h2>
           <MovingLine
             stem={c.movingStem}
             endings={c.movingEndings}
@@ -163,7 +164,7 @@ export default function VariantB() {
           <a href={c.linkedin} className="mt-4 inline-flex min-h-11 items-center text-sm font-semibold text-amber-300 underline underline-offset-4">Follow on LinkedIn</a>
         </Reveal>
 
-        <Reveal as="section" className="mx-auto mt-16 max-w-2xl rounded-3xl border border-amber-300/30 bg-gradient-to-b from-amber-300/10 to-transparent p-8 text-center lg:mt-24">
+        <Reveal as="section" className="mt-16 max-w-2xl rounded-3xl border border-amber-300/30 bg-gradient-to-b from-amber-300/10 to-transparent p-8 text-center lg:mt-24">
           <h2 className={eyebrow}>Paid consulting</h2>
           <p className="mt-4 text-6xl font-bold tracking-tight text-white">$500<span className="text-2xl text-neutral-400">/hour</span></p>
           <p className="mt-4 text-neutral-400"><Gap>a line on what the hour is for</Gap></p>
@@ -201,7 +202,17 @@ function PinnedHeader({ past }) {
   // The name block is centred on the large photo; it slides left and up onto the bar's centre line.
   const nameX = useTransform(t, [0, 1], [0, -92]);
   const nameY = useTransform(t, [0, 1], [0, -72]);
-  const nameScale = useTransform(t, [0, 1], [1, 17 / 30]);
+  // The name's large size follows the screen width (so it fits next to the photo on a
+  // 320px phone); measure it so it always lands at 16px in the bar.
+  const nameRef = useRef(null);
+  const [nameSize, setNameSize] = useState(30);
+  useEffect(() => {
+    const measure = () => setNameSize(parseFloat(getComputedStyle(nameRef.current).fontSize));
+    measure();
+    window.addEventListener('resize', measure);
+    return () => window.removeEventListener('resize', measure);
+  }, []);
+  const nameScale = useTransform(t, [0, 1], [1, 16 / nameSize]);
   const subOpacity = useTransform(t, [0, 0.5], [1, 0]);
   const barShade = useTransform(t, [0.55, 1], [0, 0.96]);
   const bg = useTransform(barShade, (a) => `rgba(10,10,10,${a})`);
@@ -222,13 +233,13 @@ function PinnedHeader({ past }) {
           >
             {/* The title line hangs below the name, so the name alone is centred and lands on the bar's centre line. */}
             <div className="relative">
-              <h1 className="whitespace-nowrap text-[30px] font-bold leading-tight tracking-tight text-white">{c.name}</h1>
+              <h1 ref={nameRef} className="whitespace-nowrap text-[clamp(20px,calc((100vw_-_184px)/6.6),30px)] font-bold leading-tight tracking-tight text-white">{c.name}</h1>
               <motion.p style={{ opacity: subOpacity }} className="absolute inset-x-0 top-full text-[13px] text-neutral-300">{c.titleLine}</motion.p>
             </div>
           </motion.div>
           <a
             href={c.consultingHref}
-            className={`absolute right-0 top-1/2 inline-flex min-h-11 -translate-y-1/2 items-center rounded-full bg-amber-300 px-4 text-sm font-semibold text-neutral-950 ${past ? '' : 'hidden'}`}
+            className={`absolute right-0 top-1/2 inline-flex min-h-11 -translate-y-1/2 items-center rounded-full bg-amber-300 px-4 text-sm font-semibold text-neutral-950 max-[359px]:px-3 ${past ? '' : 'hidden'}`}
           >
             {c.price} →
           </a>
