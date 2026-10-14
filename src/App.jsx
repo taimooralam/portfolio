@@ -172,7 +172,6 @@ export default function App() {
         <footer className="mt-16 border-t border-neutral-800 py-10 pb-32 text-sm text-neutral-400 lg:mt-24">
           <p>{c.education}</p>
           <p className="mt-2"><a href={`mailto:${c.email}`} className="text-neutral-200 underline underline-offset-4">{c.email}</a></p>
-          <p className="mt-6"><Gap>footer</Gap></p>
         </footer>
       </main>
     </div>
