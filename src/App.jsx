@@ -107,12 +107,10 @@ export default function App() {
           {c.price} · {c.bookLabel} →
         </a>
 
-        <section className="mt-16">
-          <h2 className="mb-8 text-center text-sm font-medium uppercase tracking-[0.2em] text-neutral-400">
-            <Gap>logo heading: they hired me, and I worked for them</Gap>
-          </h2>
+        {/* The logos, with no heading: his call, 2026-10-14 (#7). The opening above gives them their meaning. */}
+        <div className="mt-16">
           <LogoStrip />
-        </section>
+        </div>
 
         <Reveal as="section" className="mt-16 max-w-2xl lg:mt-24">
           <h2 className={eyebrow}>{c.problems.heading}</h2>
