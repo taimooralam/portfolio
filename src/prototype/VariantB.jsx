@@ -1,9 +1,10 @@
 // PROTOTYPE — Variant B, "Cinematic": dark, one centred column. No whiteboard photo for
 // now (his call, 2026-10-14); the round photo by his name stays. Statements light up as
 // they reach the middle of the screen, the logos drift past in a strip, the stories swipe
-// sideways, and the $500 button follows you down the page once the opening is gone.
+// sideways. His photo starts large and shrinks into a bar pinned at the top as you scroll;
+// the $500 button joins that bar once the one in the opening has scrolled away.
 import { useEffect, useRef, useState } from 'react';
-import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
+import { motion, useMotionValueEvent, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import * as c from './content';
 import { Opening, Gap, Reveal, MovingLine } from './shared';
 
@@ -62,17 +63,23 @@ function LogoStrip() {
 
 export default function VariantB() {
   const [past, setPast] = useState(false);
-  const heroRef = useRef(null);
+  const ctaRef = useRef(null);
   useEffect(() => {
     const io = new IntersectionObserver(([e]) => setPast(!e.isIntersecting), { threshold: 0 });
-    io.observe(heroRef.current);
+    io.observe(ctaRef.current);
     return () => io.disconnect();
   }, []);
 
   return (
     <div className="min-h-screen bg-neutral-950 font-sans text-neutral-200">
-      <div className="mx-auto max-w-2xl px-5 pt-12 sm:px-10 lg:pt-20">
-        <div ref={heroRef}><Hero /></div>
+      <PinnedHeader past={past} />
+      <div className="mx-auto max-w-2xl px-5 sm:px-10">
+        <p className="mt-4 text-lg leading-relaxed text-neutral-100">
+          <Opening linkClass="text-amber-300 underline underline-offset-4" />
+        </p>
+        <a ref={ctaRef} href={c.consultingHref} className="mt-7 inline-flex items-center gap-2 rounded-full bg-amber-300 px-7 py-4 font-semibold text-neutral-950">
+          {c.price} → <Gap className="!opacity-70">button label</Gap>
+        </a>
 
         <div className="mt-16 lg:mt-24">
           <MovingLine
@@ -150,33 +157,49 @@ export default function VariantB() {
         </footer>
       </div>
 
-      {/* The same one button, following you once the first screen has scrolled away. */}
-      <a
-        href={c.consultingHref}
-        className={`fixed right-4 top-4 z-40 rounded-full bg-amber-300 px-5 py-3 text-sm font-semibold text-neutral-950 shadow-lg transition-all duration-500 ${past ? 'translate-y-0 opacity-100' : 'pointer-events-none -translate-y-4 opacity-0'}`}
-      >
-        {c.price} →
-      </a>
     </div>
   );
 }
 
-function Hero() {
+// The photo shrinks from large to a thumbnail over the first 180px of scrolling, and the
+// bar it sits in stays pinned at the top. Under reduced motion it switches size in one step.
+const SHRINK = [0, 180];
+function PinnedHeader({ past }) {
+  const still = useReducedMotion();
+  const { scrollY } = useScroll();
+  const [small, setSmall] = useState(false);
+  useMotionValueEvent(scrollY, 'change', (y) => setSmall(y > SHRINK[1] / 2));
+  const photo = useTransform(scrollY, SHRINK, [128, 40]);
+  const nameSize = useTransform(scrollY, SHRINK, ['30px', '17px']);
+  const subOpacity = useTransform(scrollY, [0, 100], [1, 0]);
+  const subHeight = useTransform(scrollY, [0, 120], [40, 0]);
+  const padY = useTransform(scrollY, SHRINK, [40, 10]);
+  const shade = useTransform(scrollY, [0, 60], [0, 0.96]);
+  const bg = useTransform(shade, (a) => `rgba(10,10,10,${a})`);
+  const v = (motionValue, big, little) => (still ? (small ? little : big) : motionValue);
+
   return (
-    <div>
-      <div className="flex items-center gap-3">
-        <img src="/images/prototype-profile-640.jpg" alt="Taimoor Alam" className="h-14 w-14 rounded-full object-cover object-[57%_20%] ring-2 ring-amber-300/60" />
-        <div>
-          <h1 className="text-2xl font-bold tracking-tight text-white">{c.name}</h1>
-          <p className="text-[13px] text-neutral-300">{c.titleLine}</p>
+    <motion.header
+      style={{ backgroundColor: still ? (small ? 'rgba(10,10,10,0.96)' : 'transparent') : bg, paddingTop: v(padY, 40, 10), paddingBottom: v(padY, 40, 10) }}
+      className={`sticky top-0 z-40 backdrop-blur ${small ? 'border-b border-neutral-800' : ''}`}
+    >
+      <div className="mx-auto flex max-w-2xl items-center gap-4 px-5 sm:px-10">
+        <motion.img
+          src="/images/prototype-profile-640.jpg" alt="Taimoor Alam"
+          style={{ width: v(photo, 128, 40), height: v(photo, 128, 40) }}
+          className="shrink-0 rounded-full object-cover object-[57%_20%] ring-2 ring-amber-300/60"
+        />
+        <div className="min-w-0 flex-1">
+          <motion.h1 style={{ fontSize: v(nameSize, '30px', '17px') }} className="font-bold leading-tight tracking-tight text-white">{c.name}</motion.h1>
+          <motion.p style={{ opacity: v(subOpacity, 1, 0), height: v(subHeight, 40, 0) }} className="overflow-hidden text-[13px] text-neutral-300">{c.titleLine}</motion.p>
         </div>
+        <a
+          href={c.consultingHref}
+          className={`shrink-0 rounded-full bg-amber-300 px-4 py-2 text-sm font-semibold text-neutral-950 ${past ? '' : 'hidden'}`}
+        >
+          {c.price} →
+        </a>
       </div>
-      <p className="mt-6 text-lg leading-relaxed text-neutral-100">
-        <Opening linkClass="text-amber-300 underline underline-offset-4" />
-      </p>
-      <a href={c.consultingHref} className="mt-7 inline-flex items-center gap-2 rounded-full bg-amber-300 px-7 py-4 font-semibold text-neutral-950">
-        {c.price} → <Gap className="!opacity-70">button label</Gap>
-      </a>
-    </div>
+    </motion.header>
   );
 }
