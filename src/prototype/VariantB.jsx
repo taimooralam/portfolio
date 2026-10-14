@@ -6,7 +6,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import * as c from './content';
-import { Opening, Gap, WhiteboardStandIn, Wordmark, Reveal, MovingLine } from './shared';
+import { Opening, Gap, WhiteboardStandIn, Reveal, MovingLine } from './shared';
 
 export const label = 'Cinematic';
 
@@ -24,21 +24,38 @@ function LitLine({ lead, rest }) {
   );
 }
 
+// The real logos, dark-ground versions. Heights set by eye so each carries the same weight.
+const logoSize = {
+  golden_river: [1.9, 11], seven_one: [2.5, 9], samdock: [1.5, 9], mercedes_benz_group: [1.35, 12],
+  fortiss: [1.6, 8], osram: [1.45, 8], gorillabox: [2.9, 6], onescreen: [1.45, 9],
+  techlogix: [1.8, 9], lmkt: [2.1, 6],
+};
+function Logo({ l }) {
+  const [h, w] = logoSize[l.file] ?? [2, 9];
+  return (
+    <img
+      src={`/logos/${l.file}-on-dark.svg`}
+      alt={l.sub ? `${l.name} (${l.sub})` : l.name}
+      style={{ height: `${h}rem`, maxWidth: `${w}rem` }}
+      className="w-auto shrink-0 object-contain opacity-90"
+      loading="lazy"
+    />
+  );
+}
+
 function LogoStrip() {
   const still = useReducedMotion();
-  const row = c.logos.map((l) => (
-    <Wordmark key={l.name} {...l} className="h-12 w-44 shrink-0 text-neutral-400" />
-  ));
-  if (still) return <div className="flex flex-wrap justify-center gap-6">{row}</div>;
+  if (still) {
+    return <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-8">{c.logos.map((l) => <Logo key={l.name} l={l} />)}</div>;
+  }
   return (
     <div className="relative overflow-hidden [mask-image:linear-gradient(90deg,transparent,#000_12%,#000_88%,transparent)]">
       <motion.div
-        className="flex w-max gap-10"
+        className="flex w-max items-center gap-14 pr-14"
         animate={{ x: ['0%', '-50%'] }}
-        transition={{ duration: 28, ease: 'linear', repeat: Infinity }}
+        transition={{ duration: 40, ease: 'linear', repeat: Infinity }}
       >
-        {row}
-        {c.logos.map((l) => <Wordmark key={l.name + '2'} {...l} className="h-12 w-44 shrink-0 text-neutral-400" />)}
+        {[...c.logos, ...c.logos].map((l, k) => <Logo key={l.name + k} l={l} />)}
       </motion.div>
     </div>
   );
@@ -47,14 +64,20 @@ function LogoStrip() {
 export default function VariantB() {
   const [past, setPast] = useState(false);
   const heroRef = useRef(null);
+  const wideHeroRef = useRef(null);
   useEffect(() => {
-    const io = new IntersectionObserver(([e]) => setPast(!e.isIntersecting), { threshold: 0 });
+    const seen = new Map();
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => seen.set(e.target, e.isIntersecting));
+      setPast(![...seen.values()].some(Boolean));
+    }, { threshold: 0 });
     io.observe(heroRef.current);
+    io.observe(wideHeroRef.current);
     return () => io.disconnect();
   }, []);
 
   return (
-    <div className="min-h-screen bg-neutral-950 font-sans text-neutral-200 lg:grid lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)]">
+    <div className="min-h-screen bg-neutral-950 font-sans text-neutral-200 lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)]">
       {/* Photo: the whole first screen on a phone, a fixed panel on wide screens. */}
       <div className="relative h-[100svh] lg:sticky lg:top-0">
         <WhiteboardStandIn tone="dark" className="absolute inset-x-0 top-0 h-[55%] lg:h-full" />
@@ -65,7 +88,7 @@ export default function VariantB() {
       </div>
 
       <div className="px-5 sm:px-10 lg:py-16">
-        <div className="hidden lg:block"><Hero /></div>
+        <div ref={wideHeroRef} className="hidden lg:block"><Hero /></div>
 
         <div className="mt-16 lg:mt-24">
           <MovingLine

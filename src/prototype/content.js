@@ -44,13 +44,19 @@ export const bring = {
   ],
 };
 
+// The strip, in his CV's order (newest first), then the two he added on 2026-10-14.
+// Files live in public/logos/ (see logos.json there for each file's source).
 export const logos = [
-  { name: 'Seven.One', sub: 'ProSiebenSat.1' },
-  { name: 'Samdock', sub: 'DAYPAIO' },
-  { name: 'Mercedes-Benz Group', sub: null },
-  { name: 'OSRAM', sub: null },
-  { name: 'Gorillabox', sub: null },
-  { name: 'Clary Icon', sub: null },
+  { name: 'Golden River', sub: null, file: 'golden_river' },
+  { name: 'Seven.One', sub: 'ProSiebenSat.1', file: 'seven_one' },
+  { name: 'Samdock', sub: 'DAYPAIO', file: 'samdock' },
+  { name: 'Mercedes-Benz Group', sub: null, file: 'mercedes_benz_group' },
+  { name: 'fortiss', sub: null, file: 'fortiss' },
+  { name: 'OSRAM', sub: null, file: 'osram' },
+  { name: 'Gorillabox', sub: null, file: 'gorillabox' },
+  { name: 'OneScreen', sub: 'Clary Icon', file: 'onescreen' },
+  { name: 'Techlogix', sub: null, file: 'techlogix' },
+  { name: 'LMKT', sub: null, file: 'lmkt' },
 ];
 
 // The four stories are decided by title only; the words come from business#86.
