@@ -164,7 +164,7 @@ export default function App() {
         <Reveal as="section" className="mt-16 max-w-2xl rounded-3xl border border-amber-300/30 bg-gradient-to-b from-amber-300/10 to-transparent p-8 text-center lg:mt-24">
           <h2 className={eyebrow}>Paid consulting</h2>
           <p className="mt-4 text-6xl font-bold tracking-tight text-white">$500<span className="text-2xl text-neutral-400">/hour</span></p>
-          <p className="mt-4 text-neutral-400"><Gap>a line on what the hour is for</Gap></p>
+          <p className="mt-4 text-lg text-neutral-300">{c.hourLine}</p>
           <a href={c.consultingHref} className="mt-8 inline-flex min-h-11 items-center justify-center rounded-full bg-amber-300 px-8 py-4 font-semibold text-neutral-950">{c.price} · {c.bookLabel} →</a>
           <p className="mt-6 text-sm text-neutral-400">My company: <a href={c.goldenRiver} className="text-white underline underline-offset-4">Golden River</a></p>
         </Reveal>

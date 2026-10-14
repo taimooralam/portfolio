@@ -76,3 +76,6 @@ export const price = '$500/hour';
 export const bookLabel = 'Book an hour';
 export const education = 'M.Sc. Computer Science, TUM · English, German.';
 export const email = 'contact@taimooralam.com';
+// His line under the price, 2026-10-14 (#2): his "find the gaps in your workflow and remove
+// the pains", with "process" for "workflow" at his "yes" (option A).
+export const hourLine = 'Find the gaps in your process and remove the pains.';
