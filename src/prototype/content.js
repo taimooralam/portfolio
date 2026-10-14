@@ -72,5 +72,7 @@ export const linkedin = 'https://www.linkedin.com/in/taimooralam';
 export const goldenRiver = 'https://goldenriver.ai';
 export const consultingHref = '/consulting';
 export const price = '$500/hour';
+// His pick, 2026-10-14 (option A of three): the words on the $500 button.
+export const bookLabel = 'Book an hour';
 export const education = 'M.Sc. Computer Science, TUM · English, German.';
 export const email = 'contact@taimooralam.com';

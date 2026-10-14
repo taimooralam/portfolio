@@ -46,7 +46,7 @@ export default function VariantA() {
         </div>
 
         <a href={c.consultingHref} className="mt-10 inline-flex items-center gap-3 rounded-full bg-stone-900 px-7 py-4 font-sans text-base font-semibold text-[#f7f3ea]">
-          {c.price} <span aria-hidden="true">→</span> <Gap className="!opacity-80">button label</Gap>
+          {c.price} · {c.bookLabel} <span aria-hidden="true">→</span>
         </a>
       </header>
 

@@ -78,7 +78,7 @@ export default function VariantB() {
           <Opening linkClass="text-amber-300 underline underline-offset-4" />
         </p>
         <a ref={ctaRef} href={c.consultingHref} className="mt-7 inline-flex items-center gap-2 rounded-full bg-amber-300 px-7 py-4 font-semibold text-neutral-950">
-          {c.price} → <Gap className="!opacity-70">button label</Gap>
+          {c.price} · {c.bookLabel} →
         </a>
 
         <div className="mt-16 lg:mt-24">

@@ -77,7 +77,7 @@ export default function VariantC() {
           </p>
           <a href={c.consultingHref} className="mt-6 flex items-center justify-between rounded-2xl bg-zinc-900 px-6 py-5 text-white sm:inline-flex sm:gap-10">
             <span className="text-lg font-semibold">{c.price}</span>
-            <span className="flex items-center gap-2 text-sm"><Gap className="!opacity-80">button label</Gap> →</span>
+            <span className="flex items-center gap-2 text-sm">{c.bookLabel} →</span>
           </a>
         </div>
       </header>
