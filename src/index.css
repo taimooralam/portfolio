@@ -2,96 +2,44 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Inter, hosted on the site (SIL Open Font License, public/fonts/inter-LICENSE.txt). */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/inter-latin-wght.woff2') format('woff2-variations');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* Arial resized to Inter's measurements, so text doesn't re-wrap when Inter arrives. */
+@font-face {
+  font-family: 'Inter Fallback';
+  src: local('Arial');
+  ascent-override: 90.44%;
+  descent-override: 22.52%;
+  line-gap-override: 0%;
+  size-adjust: 107.12%;
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
+    /* Keeps a focused link clear of the pinned top bar (WCAG 2.4.11). */
+    scroll-padding-top: 5rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
   }
 
   body {
-    @apply font-sans antialiased;
-    @apply bg-primary-50 text-primary-900;
-    @apply dark:bg-primary-900 dark:text-primary-100;
-    @apply transition-colors duration-300;
+    @apply bg-neutral-950 font-sans text-neutral-200 antialiased;
   }
 
   ::selection {
-    @apply bg-accent-500/30;
+    @apply bg-amber-300/30;
   }
-}
-
-@layer components {
-  .section-container {
-    @apply max-w-6xl mx-auto px-4 sm:px-6 lg:px-8;
-  }
-
-  .glass-card {
-    @apply bg-white/80 dark:bg-primary-800/80;
-    @apply backdrop-blur-lg;
-    @apply border border-primary-200 dark:border-primary-700;
-    @apply rounded-2xl;
-    @apply shadow-lg shadow-primary-900/5 dark:shadow-black/20;
-  }
-
-  .gradient-text {
-    @apply bg-gradient-to-r from-accent-500 to-accent-400;
-    @apply bg-clip-text text-transparent;
-  }
-
-  .btn-primary {
-    @apply inline-flex items-center justify-center;
-    @apply px-6 py-3 rounded-lg;
-    @apply bg-accent-500 hover:bg-accent-600;
-    @apply text-white font-medium;
-    @apply transition-all duration-300;
-    @apply hover:scale-[1.02] hover:shadow-lg hover:shadow-accent-500/25;
-  }
-
-  .btn-secondary {
-    @apply inline-flex items-center justify-center;
-    @apply px-6 py-3 rounded-lg;
-    @apply bg-primary-100 dark:bg-primary-800;
-    @apply hover:bg-primary-200 dark:hover:bg-primary-700;
-    @apply text-primary-900 dark:text-primary-100;
-    @apply font-medium;
-    @apply transition-all duration-300;
-    @apply hover:scale-[1.02];
-  }
-
-  .skill-tag {
-    @apply inline-flex items-center;
-    @apply px-3 py-1 rounded-full text-sm;
-    @apply bg-accent-500/10 text-accent-600 dark:text-accent-400;
-    @apply border border-accent-500/20;
-  }
-
-  .domain-tag {
-    @apply inline-flex items-center;
-    @apply px-2 py-0.5 rounded text-xs font-medium;
-    @apply bg-primary-100 dark:bg-primary-700;
-    @apply text-primary-600 dark:text-primary-300;
-  }
-}
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
-}
-
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-::-webkit-scrollbar-track {
-  @apply bg-primary-100 dark:bg-primary-800;
-}
-
-::-webkit-scrollbar-thumb {
-  @apply bg-primary-300 dark:bg-primary-600 rounded-full;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  @apply bg-primary-400 dark:bg-primary-500;
 }
