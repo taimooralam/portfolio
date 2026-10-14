@@ -60,12 +60,18 @@ export default function PinnedHeader({ past }) {
               <motion.p style={{ opacity: subOpacity }} className="absolute inset-x-0 top-full text-[13px] text-neutral-300">{c.titleLine}</motion.p>
             </div>
           </motion.div>
-          <a
-            href={c.consultingHref}
-            className={`absolute right-0 top-1/2 inline-flex min-h-11 -translate-y-1/2 items-center rounded-full bg-amber-300 px-4 text-sm font-semibold text-neutral-950 max-[359px]:px-3 ${past ? '' : 'hidden'}`}
-          >
-            {c.price} →
-          </a>
+          {/* Right of the bar: his عالم mark (the one-tile dark version, his rule for small sizes),
+              then the $500 button once it has joined the bar. On phones under 380px the mark
+              steps aside for the button, as there is room for only one beside the name. */}
+          <div className="absolute right-0 top-1/2 flex -translate-y-1/2 items-center gap-3">
+            <img src="/brand/alam-small-on-dark.svg" alt="" width={43} height={20} className={`h-5 w-auto lg:h-7 ${past ? 'max-[379px]:hidden' : ''}`} />
+            <a
+              href={c.consultingHref}
+              className={`inline-flex min-h-11 items-center rounded-full bg-amber-300 px-4 text-sm font-semibold text-neutral-950 max-[359px]:px-3 ${past ? '' : 'hidden'}`}
+            >
+              {c.price} →
+            </a>
+          </div>
         </div>
       </div>
     </motion.header>
