@@ -73,16 +73,15 @@ export const stories = [
 export const linkedin = 'https://www.linkedin.com/in/taimooralam';
 
 // The posts he picked for "What I write about" (portfolio#12, 2026-10-15). Title, opening
-// line and full text are his, verbatim, as he pasted them. They link to his activity page
-// until he gives each post's own link.
-const activity = 'https://www.linkedin.com/in/taimooralam/recent-activity/all/';
+// line and full text are his, verbatim, as he pasted them. Links: his lnkd.in short links
+// (2026-10-15), resolved and stripped of the share-tracking query.
 export const posts = [
   {
     platform: 'LinkedIn',
     kind: 'Post',
     title: "TensorZero was one of the best-engineered LLM gateways I've read. Last month it was archived.",
     lead: 'Why it died has stayed with me more than how it worked.',
-    href: activity,
+    href: 'https://www.linkedin.com/posts/taimooralam_tensorzero-was-one-of-the-best-engineered-share-7478460733865889792--WFe/',
     body: [
       'Six months of LLMOps consolidation: Langfuse went to ClickHouse. Helicone went to Mintlify. LiteLLM got hit by a supply-chain attack. TensorZero was wound down.',
       'The engineering was impressive. A Rust gateway at sub-millisecond p99, a ClickHouse schema that logged every inference and its feedback, and a data flywheel that fed that production data back into evals and then into better models. All of it wired into one system.',
@@ -98,7 +97,7 @@ export const posts = [
     kind: 'Post',
     title: 'The LLM Gateway Pattern: Why Production AI Systems Need a Proxy Layer',
     lead: 'Calling an LLM provider directly from application code is the 2026 equivalent of hardcoding a database connection string.',
-    href: activity,
+    href: 'https://www.linkedin.com/posts/taimooralam_llmengineering-aiarchitecture-productionai-share-7433523176661426177-Oe_i/',
     body: [
       'It can work in a demo, but it creates operational risk in production.',
       'An LLM gateway adds a proxy layer between your application and one or more providers. This layer standardizes responses, controls routing, and centralizes policy.',
