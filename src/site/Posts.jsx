@@ -3,15 +3,17 @@
 // the same text in a dialog. The home page shows his top three; /posts shows every platform,
 // with placeholder tiles wherever he hasn't picked content yet (never invented posts).
 import { useEffect, useRef, useState } from 'react';
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import * as c from './content';
 import { Gap } from './parts';
+import { PlatformIcon } from './icons';
 
 const dotOf = (name) => c.platforms.find((p) => p.name === name)?.dot ?? '#a3a3a3';
 
 function Badge({ platform, kind }) {
   return (
-    <span className="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.2em] text-neutral-400">
-      <span className="h-2 w-2 rounded-full" style={{ background: dotOf(platform) }} aria-hidden="true" />
+    <span className="inline-flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.18em] text-neutral-400">
+      <PlatformIcon name={platform} className="h-3.5 w-3.5" color={dotOf(platform)} />
       {platform} {kind.toLowerCase()}
     </span>
   );
@@ -21,13 +23,13 @@ function FullText({ post }) {
   return (
     <>
       <Badge platform={post.platform} kind={post.kind} />
-      <h3 className="mt-3 text-xl font-semibold leading-snug text-white">{post.title}</h3>
-      <div className="mt-3 space-y-3 whitespace-pre-line leading-relaxed text-neutral-300">
+      <h3 className="mt-3 text-base font-semibold leading-snug text-white">{post.title}</h3>
+      <div className="mt-3 space-y-3 whitespace-pre-line text-sm leading-relaxed text-neutral-300">
         <p>{post.lead}</p>
         {post.body.map((para) => <p key={para}>{para}</p>)}
       </div>
-      <a href={post.href} target="_blank" rel="noreferrer" className="mt-5 inline-flex min-h-11 items-center text-sm font-semibold text-amber-300 underline underline-offset-4">
-        Open on {post.platform} →
+      <a href={post.href} target="_blank" rel="noreferrer" className="mt-4 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-amber-300 underline underline-offset-4">
+        <PlatformIcon name={post.platform} className="h-4 w-4" /> Open on {post.platform} →
       </a>
     </>
   );
@@ -49,7 +51,7 @@ function PostDialog({ post, onClose }) {
       className="w-[min(40rem,calc(100vw-2rem))] max-h-[85vh] overflow-hidden rounded-3xl border border-neutral-800 bg-neutral-950 p-0 text-neutral-200 backdrop:bg-black/70"
     >
       {post && (
-        <div className="max-h-[85vh] overflow-y-auto p-6 sm:p-8">
+        <div className="thin-scroll max-h-[85vh] overflow-y-auto p-6 sm:p-7">
           <button type="button" onClick={onClose} aria-label="Close" className="float-right -mr-2 -mt-2 grid h-11 w-11 place-items-center rounded-full text-2xl text-neutral-400 hover:text-white">×</button>
           <FullText post={post} />
         </div>
@@ -64,20 +66,21 @@ function Tile({ post, className = '', onOpen, onHover }) {
       type="button"
       onClick={() => onOpen(post)}
       onMouseEnter={() => onHover?.(post)}
-      className={`group flex flex-col rounded-3xl bg-neutral-900 p-6 text-left transition-colors hover:bg-neutral-800 ${className}`}
+      className={`group flex flex-col rounded-2xl border border-transparent bg-neutral-900 p-5 text-left transition duration-300 ease-out hover:-translate-y-0.5 hover:border-amber-300/30 hover:bg-neutral-800/80 motion-reduce:transition-none motion-reduce:hover:translate-y-0 ${className}`}
     >
       <Badge platform={post.platform} kind={post.kind} />
-      <span className="mt-3 block text-lg font-semibold leading-snug text-white">{post.title}</span>
-      <span className="mt-2 block text-neutral-300">{post.lead}</span>
-      <span className="mt-auto block pt-4 text-sm font-semibold text-amber-300">Read the whole post →</span>
+      <span className="mt-2.5 block text-[15px] font-semibold leading-snug text-white">{post.title}</span>
+      <span className="mt-1.5 block text-sm text-neutral-400">{post.lead}</span>
+      <span className="mt-auto block pt-3 text-xs font-semibold text-amber-300 transition-transform duration-300 group-hover:translate-x-0.5">Read the whole post →</span>
     </button>
   );
 }
 
 function Placeholder({ platform, kind, shape = 'short', className = '' }) {
-  const box = { tall: 'aspect-[9/14]', wide: 'aspect-video', square: 'aspect-square', short: 'min-h-[9rem]' }[shape];
+  // Compact on phones; from tablet width up each tile takes its platform's shape.
+  const box = { tall: 'min-h-[7rem] sm:aspect-[9/14]', wide: 'min-h-[7rem] sm:aspect-video', square: 'min-h-[7rem] sm:aspect-square', short: 'min-h-[7rem]' }[shape];
   return (
-    <div className={`flex flex-col rounded-3xl border border-dashed border-neutral-700 p-6 ${box} ${className}`}>
+    <div className={`flex flex-col rounded-2xl border border-dashed border-neutral-700 p-5 ${box} ${className}`}>
       <Badge platform={platform} kind={kind} />
       <span className="mt-3"><Gap>{kind.toLowerCase()} you pick</Gap></span>
     </div>
@@ -103,6 +106,7 @@ export function HomeCollage() {
   const [open, setOpen] = useState(null);
   const [hover, setHover] = useState(null);
   const canHover = useHoverPreview();
+  const still = useReducedMotion();
   const timer = useRef(null);
   const onHover = (post) => {
     if (!canHover) return;
@@ -115,19 +119,26 @@ export function HomeCollage() {
 
   return (
     <div className="relative" onMouseLeave={leave}>
-      <div className="grid gap-4 lg:grid-cols-2 lg:grid-rows-[auto_auto]">
-        {top[0] && <Tile post={top[0]} onOpen={setOpen} onHover={onHover} className="lg:row-span-2 lg:min-h-[22rem]" />}
+      <div className="grid gap-3 lg:grid-cols-2 lg:grid-rows-[auto_auto]">
+        {top[0] && <Tile post={top[0]} onOpen={setOpen} onHover={onHover} className="lg:row-span-2 lg:min-h-[15rem]" />}
         {top[1] && <Tile post={top[1]} onOpen={setOpen} onHover={onHover} />}
         {top.length < 3 && <Placeholder platform="LinkedIn" kind="Post" shape="short" />}
       </div>
-      {hover && (
-        <aside
-          aria-label="Preview"
-          className={`absolute inset-y-0 z-20 w-[calc(50%-0.5rem)] overflow-y-auto rounded-3xl border border-amber-300/30 bg-neutral-950/95 p-6 shadow-2xl backdrop-blur ${leftHovered ? 'right-0' : 'left-0'}`}
-        >
-          <FullText post={hover} />
-        </aside>
-      )}
+      <AnimatePresence>
+        {hover && (
+          <motion.aside
+            key={hover.title}
+            aria-label="Preview"
+            initial={still ? false : { opacity: 0, x: leftHovered ? -12 : 12 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={still ? { opacity: 0, transition: { duration: 0 } } : { opacity: 0, transition: { duration: 0.15 } }}
+            transition={{ duration: 0.25, ease: [0.2, 0.8, 0.2, 1] }}
+            className={`thin-scroll absolute inset-y-0 z-20 w-[calc(50%-0.375rem)] overflow-y-auto rounded-2xl border border-amber-300/30 bg-neutral-950/95 p-5 shadow-2xl backdrop-blur ${leftHovered ? 'right-0' : 'left-0'}`}
+          >
+            <FullText post={hover} />
+          </motion.aside>
+        )}
+      </AnimatePresence>
       <PostDialog post={open} onClose={() => setOpen(null)} />
     </div>
   );
@@ -168,14 +179,14 @@ export default function PostsPage() {
               onClick={() => setOnly(name)}
               className={`inline-flex min-h-11 items-center gap-2 rounded-full border px-4 text-sm ${only === name ? 'border-amber-300 bg-amber-300 text-neutral-950' : 'border-neutral-700 text-neutral-300 hover:border-neutral-500'}`}
             >
-              {name !== 'All' && <span className="h-2 w-2 rounded-full" style={{ background: dotOf(name) }} aria-hidden="true" />}
+              {name !== 'All' && <PlatformIcon name={name} className="h-4 w-4" color={only === name ? undefined : dotOf(name)} />}
               {name}
             </button>
           ))}
         </div>
-        <div className="mt-8 gap-4 sm:columns-2 lg:columns-3">
+        <div className="mt-8 gap-3 sm:columns-2 lg:columns-3">
           {tiles.map((t) => (
-            <div key={t.key} className="mb-4 break-inside-avoid">
+            <div key={t.key} className="mb-3 break-inside-avoid">
               {t.post
                 ? <Tile post={t.post} onOpen={setOpen} className="w-full" />
                 : <Placeholder platform={t.platform} kind={t.kind} shape={t.shape} />}

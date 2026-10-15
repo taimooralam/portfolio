@@ -44,6 +44,15 @@
     @apply outline outline-2 outline-offset-4 outline-amber-300;
   }
 
+  /* Slim, dark scrollbars for panels that scroll (the post previews). */
+  .thin-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: #404040 transparent;
+  }
+  .thin-scroll::-webkit-scrollbar { width: 6px; }
+  .thin-scroll::-webkit-scrollbar-track { background: transparent; }
+  .thin-scroll::-webkit-scrollbar-thumb { background: #404040; border-radius: 9999px; }
+
   ::selection {
     @apply bg-amber-300/30;
   }
