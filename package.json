@@ -1,12 +1,12 @@
 {
   "name": "taimoor-alam-portfolio",
   "version": "2.0.0",
-  "description": "Engineering Leader / Software Architect Portfolio",
+  "description": "taimooralam.com: Taimoor Alam, Founder & Fractional CTO",
   "private": true,
   "type": "module",
-  "author": "Taimoor Alam <alamtaimoor.de@gmail.com>",
+  "author": "Taimoor Alam <contact@taimooralam.com>",
   "license": "MIT",
-  "homepage": "https://taimooralam.dev",
+  "homepage": "https://taimooralam.com",
   "engines": {
     "node": ">=18.0.0",
     "npm": ">=9.0.0"

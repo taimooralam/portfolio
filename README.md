@@ -1,125 +1,43 @@
-# Technical Lead Portfolio Website
+# taimooralam.com
 
-A modern, responsive portfolio website for technical leads built with vanilla HTML, CSS, and JavaScript.
+The personal site of Taimoor Alam, Founder & Fractional CTO. One page, for business owners.
 
-## Features
+Built with **Vite 5, React 18, Tailwind CSS 3 and Framer Motion 11**, deployed on **Vercel**.
 
-- **Responsive Design**: Mobile-first approach with CSS Grid and Flexbox
-- **Modern UI**: Clean, professional design with smooth animations
-- **Interactive Components**: Dynamic navigation, contact form, and scroll animations
-- **Performance Optimized**: Lightweight and fast-loading
-- **Accessibility**: Semantic HTML and keyboard navigation support
+## Run it
 
-## Project Structure
-
-```
-technical-lead-website/
-├── src/
-│   ├── components/
-│   │   └── app.js          # Main JavaScript functionality
-│   ├── styles/
-│   │   └── main.css        # Main stylesheet
-│   └── index.html          # Main HTML file
-├── public/                 # Static assets
-├── package.json            # Project configuration
-├── .gitignore             # Git ignore rules
-└── README.md              # Project documentation
+```bash
+npm install
+npm run dev      # http://localhost:3000
+npm run build    # production build into dist/
+npm run preview  # serve dist/ locally
 ```
 
-## Getting Started
+Node 18 or newer.
 
-### Prerequisites
+## Where things live
 
-- Node.js (version 18 or higher)
-- npm (version 9 or higher)
-
-### Installation
-
-1. Clone the repository:
-   ```bash
-   git clone <repository-url>
-   cd technical-lead-website
-   ```
-
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-3. Start the development server:
-   ```bash
-   npm run dev
-   ```
-
-4. Open your browser and navigate to `http://localhost:5173`
-
-### Available Scripts
-
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run preview` - Preview production build
-- `npm start` - Start production server on port 3000
-
-## Customization
-
-### Personal Information
-
-Update the following files with your personal information:
-
-1. **src/index.html**: Update the name, title, and content
-2. **src/components/app.js**: Modify the skills, experience, and projects data
-3. **package.json**: Update author information and repository URL
-
-### Styling
-
-The website uses CSS custom properties for easy theming. Modify the variables in `src/styles/main.css`:
-
-```css
-:root {
-    --primary-color: #2563eb;
-    --secondary-color: #1e40af;
-    --accent-color: #3b82f6;
-    /* ... other variables */
-}
+```
+index.html              the head: title, description, Open Graph, JSON-LD, icons
+src/App.jsx             the page, top to bottom
+src/site/content.js     every word on the page (his, verbatim; see the comments)
+src/site/PinnedHeader.jsx  the photo that shrinks into the pinned top bar
+src/site/parts.jsx      the moving line, the fade-in, and Gap (a visible placeholder
+                        for words not yet written; none may remain at go-live)
+src/index.css           Inter (hosted here) with a size-matched fallback, base styles
+public/logos/           company logos as SVG, light and dark (logos.json lists each source)
+public/brand/           his mark, عالم in square Kufic: alam*.svg (nine tiles per square,
+                        for large sizes) and alam-small*.svg (one tile, for small sizes)
+public/fonts/           Inter, SIL Open Font License
+scripts/alam_mark.py    regenerates the mark at any tile size
 ```
 
-### Content Sections
+## Deploys
 
-The website includes the following sections:
+Every push to a branch gets a Vercel preview link. A push or merge to `master` deploys
+the live site, taimooralam.com, so merge only when the site is meant to change.
 
-- **Hero**: Introduction and call-to-action
-- **About**: Professional summary
-- **Skills**: Technical competencies
-- **Experience**: Work history and achievements
-- **Projects**: Notable work examples
-- **Contact**: Contact form and information
+## Licence
 
-## Technologies Used
-
-- **HTML5**: Semantic markup
-- **CSS3**: Modern styling with custom properties, Grid, and Flexbox
-- **JavaScript (ES6+)**: Interactive functionality
-- **Vite**: Build tool and development server
-
-## Browser Support
-
-- Chrome (latest)
-- Firefox (latest)
-- Safari (latest)
-- Edge (latest)
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Contact
-
-For questions or support, please contact [your-email@domain.com](mailto:your-email@domain.com).
+Code: MIT. Inter: SIL Open Font License (`public/fonts/inter-LICENSE.txt`). Company logos
+belong to their owners and are shown only to name where he has worked.
