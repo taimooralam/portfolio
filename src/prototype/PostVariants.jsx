@@ -30,6 +30,23 @@ function useVariant(variants) {
 // ---------- home page: B, "Reader" ----------
 // A numbered index of his posts on the left; the one under the pointer is read in full on
 // the right. On a phone the index opens each post in place, like an accordion.
+// 2026-10-15, his note on B: no "LinkedIn post" title, just the LinkedIn sign and the
+// content, and smaller text. So the first line is shown as the post's own first line.
+function ReaderText({ post, skipFirst = false }) {
+  return (
+    <>
+      <div className="space-y-2.5 whitespace-pre-line text-[13px] leading-relaxed text-neutral-300">
+        {!skipFirst && <p className="text-neutral-100">{post.title}</p>}
+        <p>{post.lead}</p>
+        {post.body.map((para) => <p key={para}>{para}</p>)}
+      </div>
+      <a href={post.href} target="_blank" rel="noreferrer" className="mt-3 inline-flex min-h-11 items-center gap-2 text-xs font-semibold text-amber-300 underline underline-offset-4">
+        <PlatformIcon name={post.platform} className="h-3.5 w-3.5" /> Open on {post.platform} →
+      </a>
+    </>
+  );
+}
+
 function HomeReader() {
   const [sel, setSel] = useState(0);
   const [openOnPhone, setOpenOnPhone] = useState(null);
@@ -46,28 +63,29 @@ function HomeReader() {
               onFocus={() => setSel(i)}
               onClick={() => { setSel(i); setOpenOnPhone(openOnPhone === i ? null : i); }}
               aria-expanded={openOnPhone === i}
-              className={`flex w-full gap-4 p-4 text-left transition-colors duration-300 ${sel === i ? 'lg:bg-neutral-900' : ''} hover:bg-neutral-900`}
+              aria-label={`${p.platform}: ${p.title}`}
+              className={`flex w-full items-start gap-3 px-4 py-3.5 text-left transition-colors duration-300 ${sel === i ? 'lg:bg-neutral-900' : ''} hover:bg-neutral-900`}
             >
-              <span className="pt-0.5 text-xs font-semibold tabular-nums text-amber-300/80">{String(i + 1).padStart(2, '0')}</span>
-              <span className="min-w-0">
-                <Badge platform={p.platform} kind={p.kind} />
-                <span className="mt-1.5 block text-sm font-semibold leading-snug text-white">{p.title}</span>
-              </span>
+              <span className="pt-px text-[11px] font-semibold tabular-nums text-amber-300/80">{String(i + 1).padStart(2, '0')}</span>
+              <PlatformIcon name={p.platform} className="mt-0.5 h-3.5 w-3.5 shrink-0" color={dotOf(p.platform)} />
+              <span className={`line-clamp-2 min-w-0 text-[13px] leading-snug ${sel === i ? 'lg:text-white' : ''} text-neutral-300`}>{p.title}</span>
             </button>
             {openOnPhone === i && (
-              <div className="thin-scroll max-h-96 overflow-y-auto px-4 pb-4 lg:hidden"><FullText post={p} /></div>
+              <div className="thin-scroll max-h-96 overflow-y-auto px-4 pb-4 lg:hidden"><ReaderText post={p} skipFirst /></div>
             )}
           </li>
         ))}
-        <li className="flex gap-4 p-4">
-          <span className="pt-0.5 text-xs font-semibold tabular-nums text-neutral-600">03</span>
+        <li className="flex items-start gap-3 px-4 py-3.5 text-[13px]">
+          <span className="pt-px text-[11px] font-semibold tabular-nums text-neutral-600">03</span>
+          <PlatformIcon name="LinkedIn" className="mt-0.5 h-3.5 w-3.5 shrink-0" color="#525252" />
           <Gap>post 3 you pick</Gap>
         </li>
       </ol>
-      <article className="thin-scroll hidden max-h-[24rem] overflow-y-auto rounded-2xl border border-amber-300/20 bg-neutral-900/50 p-5 lg:block">
+      <article className="thin-scroll hidden max-h-[22rem] overflow-y-auto rounded-2xl border border-amber-300/20 bg-neutral-900/50 p-5 lg:block">
         <AnimatePresence mode="wait">
           <motion.div key={post.title} initial={still ? false : { opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={still ? undefined : { opacity: 0 }} transition={{ duration: 0.2 }}>
-            <FullText post={post} />
+            <PlatformIcon name={post.platform} className="mb-3 h-4 w-4" color={dotOf(post.platform)} />
+            <ReaderText post={post} />
           </motion.div>
         </AnimatePresence>
       </article>
