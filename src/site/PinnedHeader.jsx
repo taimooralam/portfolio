@@ -5,7 +5,7 @@
 // switches between the two states in one step. The $500 button joins the bar once the
 // one in the opening has scrolled away (`past`).
 import { useEffect, useRef, useState } from 'react';
-import { motion, useMotionValue, useMotionValueEvent, useReducedMotion, useScroll, useTransform } from 'framer-motion';
+import { motion, useMotionValue, useMotionValueEvent, useReducedMotion, useScroll, useSpring, useTransform } from 'framer-motion';
 import * as c from './content';
 
 const SHRINK = 180;
@@ -19,8 +19,28 @@ export default function PinnedHeader({ past }) {
   useMotionValueEvent(scrollY, 'change', (y) => stepped.set(y > SHRINK / 2 ? 1 : 0));
   const t = still ? stepped : smooth;
 
-  // Large: photo 128px at 40px from the top. Small: 40px, centred in the 64px bar.
-  const photoY = useTransform(t, [0, 1], [40, 12]);
+  // His عالم mark leads the bar on the left (the one-tile dark version: his rule for small
+  // sizes). In the large state it sits above the photo; in the bar the photo and name move
+  // right to make room for it. Under 380px, once the $500 button has joined the bar, there is
+  // room for only one of mark and button beside the name, so the mark steps aside.
+  const logoRef = useRef(null);
+  const [narrow, setNarrow] = useState(false);
+  const [logoW, setLogoW] = useState(40);
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 379px)');
+    const sync = () => { setNarrow(mq.matches); if (logoRef.current) setLogoW(logoRef.current.getBoundingClientRect().width || 40); };
+    sync();
+    mq.addEventListener('change', sync);
+    window.addEventListener('resize', sync);
+    return () => { mq.removeEventListener('change', sync); window.removeEventListener('resize', sync); };
+  }, []);
+  const logoShown = !(past && narrow);
+  const room = useSpring(logoShown ? logoW + 12 : 0, { stiffness: 300, damping: 32 });
+  useEffect(() => { const v = logoShown ? logoW + 12 : 0; if (still) room.jump(v); else room.set(v); }, [logoShown, logoW, room, still]);
+
+  // Large: photo 128px at 48px from the top, clear of the mark. Small: 40px, centred in the 64px bar.
+  const photoY = useTransform(t, [0, 1], [48, 12]);
+  const photoX = useTransform([t, room], ([tt, r]) => tt * r);
   const photoScale = useTransform(t, [0, 1], [1, 40 / 128]);
   // The name's large size follows the screen width (so it fits next to the photo on a
   // 320px phone); measure it so it always lands at 16px in the bar.
@@ -33,8 +53,8 @@ export default function PinnedHeader({ past }) {
     return () => window.removeEventListener('resize', measure);
   }, []);
   // The name block is centred on the large photo; it slides left and up onto the bar's centre line.
-  const nameX = useTransform(t, [0, 1], [0, -92]);
-  const nameY = useTransform(t, [0, 1], [0, -72]);
+  const nameX = useTransform([t, room], ([tt, r]) => tt * (r - 92));
+  const nameY = useTransform(t, [0, 1], [0, -80]);
   const nameScale = useTransform(t, [0, 1], [1, 16 / nameSize]);
   const subOpacity = useTransform(t, [0, 0.5], [1, 0]);
   const barShade = useTransform(t, [0.55, 1], [0, 0.96]);
@@ -47,12 +67,12 @@ export default function PinnedHeader({ past }) {
         <div className="relative h-full">
           <motion.img
             src="/images/profile-640.jpg" alt="Taimoor Alam" width={128} height={128} fetchpriority="high"
-            style={{ y: photoY, scale: photoScale, originX: 0, originY: 0 }}
+            style={{ x: photoX, y: photoY, scale: photoScale, originX: 0, originY: 0 }}
             className="pointer-events-none absolute left-0 top-0 h-32 w-32 rounded-full object-cover object-[57%_20%] ring-2 ring-amber-300/60"
           />
           <motion.div
             style={{ x: nameX, y: nameY, scale: nameScale, originX: 0 }}
-            className="pointer-events-none absolute left-36 right-0 top-10 flex h-32 flex-col justify-center"
+            className="pointer-events-none absolute left-36 right-0 top-12 flex h-32 flex-col justify-center"
           >
             {/* The title line hangs below the name, so the name alone is centred and lands on the bar's centre line. */}
             <div className="relative">
@@ -60,11 +80,11 @@ export default function PinnedHeader({ past }) {
               <motion.p style={{ opacity: subOpacity }} className="absolute inset-x-0 top-full text-[13px] text-neutral-300">{c.titleLine}</motion.p>
             </div>
           </motion.div>
-          {/* Right of the bar: his عالم mark (the one-tile dark version, his rule for small sizes),
-              then the $500 button once it has joined the bar. On phones under 380px the mark
-              steps aside for the button, as there is room for only one beside the name. */}
-          <div className="absolute right-0 top-1/2 flex -translate-y-1/2 items-center gap-3">
-            <img src="/brand/alam-small-on-dark.svg" alt="" width={43} height={20} className={`h-5 w-auto lg:h-7 ${past ? 'max-[379px]:hidden' : ''}`} />
+          <img
+            ref={logoRef} src="/brand/alam-small-on-dark.svg" alt="" width={40} height={20}
+            className={`absolute left-0 top-1/2 h-5 w-auto -translate-y-1/2 transition-opacity duration-300 lg:h-7 ${logoShown ? 'opacity-100' : 'pointer-events-none opacity-0'}`}
+          />
+          <div className="absolute right-0 top-1/2 flex -translate-y-1/2 items-center">
             <a
               href={c.consultingHref}
               className={`inline-flex min-h-11 items-center rounded-full bg-amber-300 px-4 text-sm font-semibold text-neutral-950 max-[359px]:px-3 ${past ? '' : 'hidden'}`}
