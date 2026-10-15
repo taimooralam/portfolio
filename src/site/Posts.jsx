@@ -8,9 +8,9 @@ import * as c from './content';
 import { Gap } from './parts';
 import { PlatformIcon } from './icons';
 
-const dotOf = (name) => c.platforms.find((p) => p.name === name)?.dot ?? '#a3a3a3';
+export const dotOf = (name) => c.platforms.find((p) => p.name === name)?.dot ?? '#a3a3a3';
 
-function Badge({ platform, kind }) {
+export function Badge({ platform, kind }) {
   return (
     <span className="inline-flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.18em] text-neutral-400">
       <PlatformIcon name={platform} className="h-3.5 w-3.5" color={dotOf(platform)} />
@@ -19,7 +19,7 @@ function Badge({ platform, kind }) {
   );
 }
 
-function FullText({ post }) {
+export function FullText({ post }) {
   return (
     <>
       <Badge platform={post.platform} kind={post.kind} />
@@ -36,7 +36,7 @@ function FullText({ post }) {
 }
 
 // The dialog that a click or tap opens. Esc, the close button and a click outside close it.
-function PostDialog({ post, onClose }) {
+export function PostDialog({ post, onClose }) {
   const ref = useRef(null);
   useEffect(() => {
     const d = ref.current;
@@ -60,7 +60,7 @@ function PostDialog({ post, onClose }) {
   );
 }
 
-function Tile({ post, className = '', onOpen, onHover }) {
+export function Tile({ post, className = '', onOpen, onHover }) {
   return (
     <button
       type="button"
@@ -76,7 +76,7 @@ function Tile({ post, className = '', onOpen, onHover }) {
   );
 }
 
-function Placeholder({ platform, kind, shape = 'short', className = '' }) {
+export function Placeholder({ platform, kind, shape = 'short', className = '' }) {
   // Compact on phones; from tablet width up each tile takes its platform's shape.
   const box = { tall: 'min-h-[7rem] sm:aspect-[9/14]', wide: 'min-h-[7rem] sm:aspect-video', square: 'min-h-[7rem] sm:aspect-square', short: 'min-h-[7rem]' }[shape];
   return (
@@ -88,7 +88,7 @@ function Placeholder({ platform, kind, shape = 'short', className = '' }) {
 }
 
 // Hover preview: only where a real pointer can hover and the collage has two columns.
-function useHoverPreview() {
+export function useHoverPreview() {
   const [can, setCan] = useState(false);
   useEffect(() => {
     const mq = window.matchMedia('(hover: hover) and (pointer: fine) and (min-width: 1024px)');
