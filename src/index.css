@@ -39,6 +39,11 @@
     @apply bg-neutral-950 font-sans text-neutral-200 antialiased;
   }
 
+  /* A visible amber focus ring on every page. */
+  a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
+    @apply outline outline-2 outline-offset-4 outline-amber-300;
+  }
+
   ::selection {
     @apply bg-amber-300/30;
   }

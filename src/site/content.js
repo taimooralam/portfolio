@@ -72,22 +72,58 @@ export const stories = [
 
 export const linkedin = 'https://www.linkedin.com/in/taimooralam';
 
-// The posts he picked for "What I write about" (portfolio#12, 2026-10-15): his words,
-// verbatim, the title and the line under it. They link to his activity page until he gives
-// each post's own link.
+// The posts he picked for "What I write about" (portfolio#12, 2026-10-15). Title, opening
+// line and full text are his, verbatim, as he pasted them. They link to his activity page
+// until he gives each post's own link.
 const activity = 'https://www.linkedin.com/in/taimooralam/recent-activity/all/';
 export const posts = [
   {
+    platform: 'LinkedIn',
+    kind: 'Post',
     title: "TensorZero was one of the best-engineered LLM gateways I've read. Last month it was archived.",
     lead: 'Why it died has stayed with me more than how it worked.',
     href: activity,
+    body: [
+      'Six months of LLMOps consolidation: Langfuse went to ClickHouse. Helicone went to Mintlify. LiteLLM got hit by a supply-chain attack. TensorZero was wound down.',
+      'The engineering was impressive. A Rust gateway at sub-millisecond p99, a ClickHouse schema that logged every inference and its feedback, and a data flywheel that fed that production data back into evals and then into better models. All of it wired into one system.',
+      "That wiring was the actual value proposition, and it's also the first thing teams take apart.",
+      'Most kept the gateway, added Langfuse for tracing and DeepEval for evals, and the flywheel never really spun. It was fully open-source with no paid tier, so each new user was a cost rather than revenue. At the same time the model providers were pulling routing, caching and fine-tuning into their own platforms.',
+      'So it was a strong engineering bet on a hard business shape. Users unbundled it from the side, the big providers absorbed its features from above, and with no paid tier there was never any revenue to fund the middle.',
+      "What I'm taking into the agent systems I build: keep governance and measurement as composable layers that plug into the stack teams actually use, instead of one more integrated platform they have to adopt whole.",
+      'Is the standalone LLM gateway a dead category now? Curious how other infra people read it.',
+    ],
   },
   {
+    platform: 'LinkedIn',
+    kind: 'Post',
     title: 'The LLM Gateway Pattern: Why Production AI Systems Need a Proxy Layer',
     lead: 'Calling an LLM provider directly from application code is the 2026 equivalent of hardcoding a database connection string.',
     href: activity,
+    body: [
+      'It can work in a demo, but it creates operational risk in production.',
+      'An LLM gateway adds a proxy layer between your application and one or more providers. This layer standardizes responses, controls routing, and centralizes policy.',
+      'Three production reasons this matters:',
+      '1. Error normalization\nProviders can return HTTP 200 responses with malformed or schema-breaking output. A gateway validates responses and returns structured errors instead of letting invalid data reach users.',
+      '2. Resilience\nProvider outages and model-level throttling are normal production events. A gateway can apply health checks, circuit breakers, and failover to secondary providers without client code changes or redeploys.',
+      '3. Cost control\nToken accounting, per-team cost attribution, and prompt caching should be centralized. Semantic caching on repeated query patterns can materially reduce inference spend.',
+      'API gateways are a proven pattern in distributed systems. In LLM systems, they are even more important because limits vary by model, outputs are non-deterministic, and bad prompts can be expensive.',
+      'If you run LLMs in production, put a gateway in front of them.',
+    ],
   },
 ];
+
+// The platforms on the all-posts page (his list, 2026-10-15). Until he picks real posts and
+// videos, each shows placeholder tiles, never invented content.
+export const platforms = [
+  { name: 'LinkedIn', dot: '#0A66C2', slots: [['Post', 'tall']] },
+  { name: 'YouTube', dot: '#FF0000', slots: [['Video', 'wide'], ['Short', 'tall']] },
+  { name: 'Instagram', dot: '#E1306C', slots: [['Post', 'square'], ['Reel', 'tall']] },
+  { name: 'TikTok', dot: '#25F4EE', slots: [['Video', 'tall']] },
+  { name: 'Facebook', dot: '#1877F2', slots: [['Post', 'square']] },
+  { name: 'X', dot: '#E5E5E5', slots: [['Post', 'short'], ['Post', 'short']] },
+  { name: 'Threads', dot: '#A3A3A3', slots: [['Post', 'short']] },
+];
+export const postsHref = '/posts';
 export const goldenRiver = 'https://goldenriver.ai';
 export const consultingHref = '/consulting';
 export const price = '$500/hour';

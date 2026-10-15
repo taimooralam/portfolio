@@ -7,6 +7,7 @@ import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion
 import * as c from './site/content';
 import { Gap, Reveal, MovingLine } from './site/parts';
 import PinnedHeader from './site/PinnedHeader';
+import { HomeCollage } from './site/Posts';
 
 const eyebrow = 'text-sm font-medium uppercase tracking-[0.2em] text-amber-300/80';
 const focusRing = [
@@ -112,6 +113,26 @@ export default function App() {
           <LogoStrip />
         </div>
 
+        {/* What he writes about, right under the logos (his call, 2026-10-15): the moving line,
+            then his top three posts as a collage, then the way to everything else. */}
+        <section className="mt-16 lg:mt-24">
+          <h2 className="sr-only">What I write about</h2>
+          <div className="max-w-2xl">
+            <MovingLine
+              stem={c.movingStem}
+              endings={c.movingEndings}
+              stemClass={eyebrow}
+              listClass="mt-3 space-y-2 text-2xl font-semibold leading-snug tracking-tight text-white sm:text-3xl"
+              buttonClass="border-neutral-700 text-neutral-400"
+            />
+          </div>
+          <div className="mt-8"><HomeCollage /></div>
+          <div className="mt-4 flex flex-wrap gap-x-6">
+            <a href={c.postsHref} className="inline-flex min-h-11 items-center text-sm font-semibold text-amber-300 underline underline-offset-4">See all my posts and videos →</a>
+            <a href={c.linkedin} className="inline-flex min-h-11 items-center text-sm font-semibold text-neutral-300 underline underline-offset-4">Follow on LinkedIn</a>
+          </div>
+        </section>
+
         <Reveal as="section" className="mt-16 max-w-2xl lg:mt-24">
           <h2 className={eyebrow}>{c.problems.heading}</h2>
           <p className="mt-4 text-xl leading-relaxed text-neutral-300">{c.problems.lead}</p>
@@ -146,28 +167,6 @@ export default function App() {
           <p className="mt-2 text-xs text-neutral-400 lg:hidden">Swipe →</p>
         </section>
 
-        <Reveal as="section" className="mt-16 max-w-2xl lg:mt-24">
-          <h2 className="sr-only">What I write about</h2>
-          <MovingLine
-            stem={c.movingStem}
-            endings={c.movingEndings}
-            stemClass={eyebrow}
-            listClass="mt-3 space-y-2 text-2xl font-semibold leading-snug tracking-tight text-white sm:text-3xl"
-            buttonClass="border-neutral-700 text-neutral-400"
-          />
-          <div className="mt-6 space-y-3">
-            {c.posts.map((post) => (
-              <a key={post.title} href={post.href} className="block rounded-2xl bg-neutral-900 p-5 transition-colors hover:bg-neutral-800">
-                <span className="text-xs font-medium uppercase tracking-[0.2em] text-neutral-400">LinkedIn post</span>
-                <span className="mt-2 block text-lg font-semibold leading-snug text-white">{post.title}</span>
-                <span className="mt-2 block text-neutral-300">{post.lead}</span>
-                <span className="mt-3 block text-sm font-semibold text-amber-300">Read on LinkedIn →</span>
-              </a>
-            ))}
-            {c.posts.length < 3 && <Gap className="block">post 3 you pick</Gap>}
-          </div>
-          <a href={c.linkedin} className="mt-4 inline-flex min-h-11 items-center text-sm font-semibold text-amber-300 underline underline-offset-4">Follow on LinkedIn</a>
-        </Reveal>
 
         <Reveal as="section" className="mt-16 max-w-2xl rounded-3xl border border-amber-300/30 bg-gradient-to-b from-amber-300/10 to-transparent p-8 text-center lg:mt-24">
           <h2 className={eyebrow}>Paid consulting</h2>
