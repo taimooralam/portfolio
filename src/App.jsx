@@ -97,7 +97,7 @@ export default function App() {
       <PinnedHeader past={past} />
       <main className="mx-auto max-w-4xl px-5 sm:px-10">
         {/* Room for the header's large state, so its shrinking never moves the page. */}
-        <div className="h-52" aria-hidden="true" />
+        <div className="h-[248px]" aria-hidden="true" />
         <p className="max-w-[65ch] text-lg leading-relaxed text-neutral-100 lg:text-xl">
           {c.opening.before}
           <a href={c.goldenRiver} className="text-amber-300 underline underline-offset-4">{c.opening.link}</a>
@@ -156,7 +156,15 @@ export default function App() {
             buttonClass="border-neutral-700 text-neutral-400"
           />
           <div className="mt-6 space-y-3">
-            {[1, 2, 3].map((n) => <Gap key={n} className="block">post {n} you pick</Gap>)}
+            {c.posts.map((post) => (
+              <a key={post.title} href={post.href} className="block rounded-2xl bg-neutral-900 p-5 transition-colors hover:bg-neutral-800">
+                <span className="text-xs font-medium uppercase tracking-[0.2em] text-neutral-400">LinkedIn post</span>
+                <span className="mt-2 block text-lg font-semibold leading-snug text-white">{post.title}</span>
+                <span className="mt-2 block text-neutral-300">{post.lead}</span>
+                <span className="mt-3 block text-sm font-semibold text-amber-300">Read on LinkedIn →</span>
+              </a>
+            ))}
+            {c.posts.length < 3 && <Gap className="block">post 3 you pick</Gap>}
           </div>
           <a href={c.linkedin} className="mt-4 inline-flex min-h-11 items-center text-sm font-semibold text-amber-300 underline underline-offset-4">Follow on LinkedIn</a>
         </Reveal>

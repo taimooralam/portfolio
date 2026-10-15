@@ -71,6 +71,23 @@ export const stories = [
 ];
 
 export const linkedin = 'https://www.linkedin.com/in/taimooralam';
+
+// The posts he picked for "What I write about" (portfolio#12, 2026-10-15): his words,
+// verbatim, the title and the line under it. They link to his activity page until he gives
+// each post's own link.
+const activity = 'https://www.linkedin.com/in/taimooralam/recent-activity/all/';
+export const posts = [
+  {
+    title: "TensorZero was one of the best-engineered LLM gateways I've read. Last month it was archived.",
+    lead: 'Why it died has stayed with me more than how it worked.',
+    href: activity,
+  },
+  {
+    title: 'The LLM Gateway Pattern: Why Production AI Systems Need a Proxy Layer',
+    lead: 'Calling an LLM provider directly from application code is the 2026 equivalent of hardcoding a database connection string.',
+    href: activity,
+  },
+];
 export const goldenRiver = 'https://goldenriver.ai';
 export const consultingHref = '/consulting';
 export const price = '$500/hour';

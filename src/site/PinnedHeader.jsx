@@ -38,8 +38,9 @@ export default function PinnedHeader({ past }) {
   const room = useSpring(logoShown ? logoW + 12 : 0, { stiffness: 300, damping: 32 });
   useEffect(() => { const v = logoShown ? logoW + 12 : 0; if (still) room.jump(v); else room.set(v); }, [logoShown, logoW, room, still]);
 
-  // Large: photo 128px at 48px from the top, clear of the mark. Small: 40px, centred in the 64px bar.
-  const photoY = useTransform(t, [0, 1], [48, 12]);
+  // Large: photo 128px at 72px from the top, well clear of the mark (his note: too close).
+  // Small: 40px, centred in the 64px bar.
+  const photoY = useTransform(t, [0, 1], [72, 12]);
   const photoX = useTransform([t, room], ([tt, r]) => tt * r);
   const photoScale = useTransform(t, [0, 1], [1, 40 / 128]);
   // The name's large size follows the screen width (so it fits next to the photo on a
@@ -54,7 +55,7 @@ export default function PinnedHeader({ past }) {
   }, []);
   // The name block is centred on the large photo; it slides left and up onto the bar's centre line.
   const nameX = useTransform([t, room], ([tt, r]) => tt * (r - 92));
-  const nameY = useTransform(t, [0, 1], [0, -80]);
+  const nameY = useTransform(t, [0, 1], [0, -104]);
   const nameScale = useTransform(t, [0, 1], [1, 16 / nameSize]);
   const subOpacity = useTransform(t, [0, 0.5], [1, 0]);
   const barShade = useTransform(t, [0.55, 1], [0, 0.96]);
@@ -72,7 +73,7 @@ export default function PinnedHeader({ past }) {
           />
           <motion.div
             style={{ x: nameX, y: nameY, scale: nameScale, originX: 0 }}
-            className="pointer-events-none absolute left-36 right-0 top-12 flex h-32 flex-col justify-center"
+            className="pointer-events-none absolute left-36 right-0 top-[72px] flex h-32 flex-col justify-center"
           >
             {/* The title line hangs below the name, so the name alone is centred and lands on the bar's centre line. */}
             <div className="relative">
