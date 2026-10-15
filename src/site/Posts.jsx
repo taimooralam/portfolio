@@ -1,8 +1,9 @@
-// His posts as a collage of tiles. On a laptop, resting the pointer on a tile opens a
-// preview beside it that scrolls through the whole post; on any device a click or tap opens
-// the same text in a dialog. The home page shows his top three; /posts shows every platform,
-// with placeholder tiles wherever he hasn't picked content yet (never invented posts).
-import { useEffect, useRef, useState } from 'react';
+// His posts. The home page shows them as a reader: a numbered list beside the whole post,
+// the one under the pointer shown in full (on a phone, tapping one opens it in place).
+// /posts is one reading column with a platform rail, placeholders wherever he hasn't picked
+// content yet (never invented posts). His choices, 2026-10-15: home "Reader", /posts "Feed";
+// no title line, just the platform's sign and the post itself, in smaller text.
+import { useEffect, useState } from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import * as c from './content';
 import { Gap } from './parts';
@@ -10,148 +11,104 @@ import { PlatformIcon } from './icons';
 
 const dotOf = (name) => c.platforms.find((p) => p.name === name)?.dot ?? '#a3a3a3';
 
-function Badge({ platform, kind }) {
+// The post as he wrote it: its first line, then the rest. `skipFirst` when the first line is
+// already showing just above it.
+function PostText({ post, skipFirst = false }) {
   return (
-    <span className="inline-flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.18em] text-neutral-400">
-      <PlatformIcon name={platform} className="h-3.5 w-3.5" color={dotOf(platform)} />
-      {platform} {kind.toLowerCase()}
-    </span>
-  );
-}
-
-function FullText({ post }) {
-  return (
-    <>
-      <Badge platform={post.platform} kind={post.kind} />
-      <h3 className="mt-3 text-base font-semibold leading-snug text-white">{post.title}</h3>
-      <div className="mt-3 space-y-3 whitespace-pre-line text-sm leading-relaxed text-neutral-300">
-        <p>{post.lead}</p>
-        {post.body.map((para) => <p key={para}>{para}</p>)}
-      </div>
-      <a href={post.href} target="_blank" rel="noreferrer" className="mt-4 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-amber-300 underline underline-offset-4">
-        <PlatformIcon name={post.platform} className="h-4 w-4" /> Open on {post.platform} →
-      </a>
-    </>
-  );
-}
-
-// The dialog that a click or tap opens. Esc, the close button and a click outside close it.
-function PostDialog({ post, onClose }) {
-  const ref = useRef(null);
-  useEffect(() => {
-    const d = ref.current;
-    if (post && !d.open) d.showModal();
-    if (!post && d.open) d.close();
-  }, [post]);
-  return (
-    <dialog
-      ref={ref}
-      onClose={onClose}
-      onClick={(e) => { if (e.target === ref.current) onClose(); }}
-      className="w-[min(40rem,calc(100vw-2rem))] max-h-[85vh] overflow-hidden rounded-3xl border border-neutral-800 bg-neutral-950 p-0 text-neutral-200 backdrop:bg-black/70"
-    >
-      {post && (
-        <div className="thin-scroll max-h-[85vh] overflow-y-auto p-6 sm:p-7">
-          <button type="button" onClick={onClose} aria-label="Close" className="float-right -mr-2 -mt-2 grid h-11 w-11 place-items-center rounded-full text-2xl text-neutral-400 hover:text-white">×</button>
-          <FullText post={post} />
-        </div>
-      )}
-    </dialog>
-  );
-}
-
-function Tile({ post, className = '', onOpen, onHover }) {
-  return (
-    <button
-      type="button"
-      onClick={() => onOpen(post)}
-      onMouseEnter={() => onHover?.(post)}
-      className={`group flex flex-col rounded-2xl border border-transparent bg-neutral-900 p-5 text-left transition duration-300 ease-out hover:-translate-y-0.5 hover:border-amber-300/30 hover:bg-neutral-800/80 motion-reduce:transition-none motion-reduce:hover:translate-y-0 ${className}`}
-    >
-      <Badge platform={post.platform} kind={post.kind} />
-      <span className="mt-2.5 block text-[15px] font-semibold leading-snug text-white">{post.title}</span>
-      <span className="mt-1.5 block text-sm text-neutral-400">{post.lead}</span>
-      <span className="mt-auto block pt-3 text-xs font-semibold text-amber-300 transition-transform duration-300 group-hover:translate-x-0.5">Read the whole post →</span>
-    </button>
-  );
-}
-
-function Placeholder({ platform, kind, shape = 'short', className = '' }) {
-  // Compact on phones; from tablet width up each tile takes its platform's shape.
-  const box = { tall: 'min-h-[7rem] sm:aspect-[9/14]', wide: 'min-h-[7rem] sm:aspect-video', square: 'min-h-[7rem] sm:aspect-square', short: 'min-h-[7rem]' }[shape];
-  return (
-    <div className={`flex flex-col rounded-2xl border border-dashed border-neutral-700 p-5 ${box} ${className}`}>
-      <Badge platform={platform} kind={kind} />
-      <span className="mt-3"><Gap>{kind.toLowerCase()} you pick</Gap></span>
+    <div className="space-y-2.5 whitespace-pre-line text-[13px] leading-relaxed text-neutral-300">
+      {!skipFirst && <p className="text-neutral-100">{post.title}</p>}
+      <p>{post.lead}</p>
+      {post.body.map((para) => <p key={para}>{para}</p>)}
     </div>
   );
 }
 
-// Hover preview: only where a real pointer can hover and the collage has two columns.
-function useHoverPreview() {
-  const [can, setCan] = useState(false);
-  useEffect(() => {
-    const mq = window.matchMedia('(hover: hover) and (pointer: fine) and (min-width: 1024px)');
-    const sync = () => setCan(mq.matches);
-    sync();
-    mq.addEventListener('change', sync);
-    return () => mq.removeEventListener('change', sync);
-  }, []);
-  return can;
+function OpenOn({ post }) {
+  return (
+    <a href={post.href} target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center gap-2 text-xs font-semibold text-amber-300 underline underline-offset-4">
+      <PlatformIcon name={post.platform} className="h-3.5 w-3.5" /> Open on {post.platform} →
+    </a>
+  );
 }
 
-// The home page's collage: his top three, the first one large. Resting on a tile opens the
-// whole post in the other column, where it scrolls.
-export function HomeCollage() {
-  const [open, setOpen] = useState(null);
-  const [hover, setHover] = useState(null);
-  const canHover = useHoverPreview();
+// Home: his top three.
+export function HomePosts() {
+  const [sel, setSel] = useState(0);
+  const [openOnPhone, setOpenOnPhone] = useState(null);
   const still = useReducedMotion();
-  const timer = useRef(null);
-  const onHover = (post) => {
-    if (!canHover) return;
-    clearTimeout(timer.current);
-    timer.current = setTimeout(() => setHover(post), 180);
-  };
-  const leave = () => { clearTimeout(timer.current); setHover(null); };
   const top = c.posts.slice(0, 3);
-  const leftHovered = hover && hover === top[0];
-
+  const post = top[sel];
   return (
-    <div className="relative" onMouseLeave={leave}>
-      <div className="grid gap-3 lg:grid-cols-2 lg:grid-rows-[auto_auto]">
-        {top[0] && <Tile post={top[0]} onOpen={setOpen} onHover={onHover} className="lg:row-span-2 lg:min-h-[15rem]" />}
-        {top[1] && <Tile post={top[1]} onOpen={setOpen} onHover={onHover} />}
-        {top.length < 3 && <Placeholder platform="LinkedIn" kind="Post" shape="short" />}
-      </div>
-      <AnimatePresence>
-        {hover && (
-          <motion.aside
-            key={hover.title}
-            aria-label="Preview"
-            initial={still ? false : { opacity: 0, x: leftHovered ? -12 : 12 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={still ? { opacity: 0, transition: { duration: 0 } } : { opacity: 0, transition: { duration: 0.15 } }}
-            transition={{ duration: 0.25, ease: [0.2, 0.8, 0.2, 1] }}
-            className={`thin-scroll absolute inset-y-0 z-20 w-[calc(50%-0.375rem)] overflow-y-auto rounded-2xl border border-amber-300/30 bg-neutral-950/95 p-5 shadow-2xl backdrop-blur ${leftHovered ? 'right-0' : 'left-0'}`}
-          >
-            <FullText post={hover} />
-          </motion.aside>
+    <div className="grid gap-3 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]">
+      <ol className="divide-y divide-neutral-800 overflow-hidden rounded-2xl border border-neutral-800">
+        {top.map((p, i) => (
+          <li key={p.title}>
+            <button
+              type="button"
+              onMouseEnter={() => setSel(i)}
+              onFocus={() => setSel(i)}
+              onClick={() => { setSel(i); setOpenOnPhone(openOnPhone === i ? null : i); }}
+              aria-expanded={openOnPhone === i}
+              aria-label={`${p.platform}: ${p.title}`}
+              className={`flex w-full items-start gap-3 px-4 py-3.5 text-left transition-colors duration-300 hover:bg-neutral-900 ${sel === i ? 'lg:bg-neutral-900' : ''}`}
+            >
+              <span className="pt-px text-[11px] font-semibold tabular-nums text-amber-300/80">{String(i + 1).padStart(2, '0')}</span>
+              <PlatformIcon name={p.platform} className="mt-0.5 h-3.5 w-3.5 shrink-0" color={dotOf(p.platform)} />
+              <span className={`line-clamp-2 min-w-0 text-[13px] leading-snug text-neutral-300 ${sel === i ? 'lg:text-white' : ''}`}>{p.title}</span>
+            </button>
+            {openOnPhone === i && (
+              <div className="thin-scroll max-h-96 overflow-y-auto px-4 pb-2 lg:hidden">
+                <PostText post={p} skipFirst />
+                <OpenOn post={p} />
+              </div>
+            )}
+          </li>
+        ))}
+        {top.length < 3 && (
+          <li className="flex items-start gap-3 px-4 py-3.5 text-[13px]">
+            <span className="pt-px text-[11px] font-semibold tabular-nums text-neutral-600">{String(top.length + 1).padStart(2, '0')}</span>
+            <PlatformIcon name="LinkedIn" className="mt-0.5 h-3.5 w-3.5 shrink-0" color="#525252" />
+            <Gap>post {top.length + 1} you pick</Gap>
+          </li>
         )}
-      </AnimatePresence>
-      <PostDialog post={open} onClose={() => setOpen(null)} />
+      </ol>
+      <article aria-label="Post" className="thin-scroll hidden max-h-[22rem] overflow-y-auto rounded-2xl border border-amber-300/20 bg-neutral-900/50 p-5 lg:block">
+        <AnimatePresence mode="wait">
+          <motion.div key={post.title} initial={still ? false : { opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={still ? undefined : { opacity: 0 }} transition={{ duration: 0.2 }}>
+            <PlatformIcon name={post.platform} className="mb-3 h-4 w-4" color={dotOf(post.platform)} />
+            <PostText post={post} />
+            <div className="mt-1"><OpenOn post={post} /></div>
+          </motion.div>
+        </AnimatePresence>
+      </article>
     </div>
   );
 }
 
-// /posts: every platform, filterable. His real posts first, then placeholder tiles.
+// /posts: one post in the feed, long ones folded after a few lines.
+function FeedPost({ post }) {
+  const [more, setMore] = useState(false);
+  return (
+    <article className="rounded-2xl border border-neutral-800 bg-neutral-900/60 p-5">
+      <PlatformIcon name={post.platform} className="mb-3 h-4 w-4" color={dotOf(post.platform)} />
+      <div className={more ? '' : 'line-clamp-6'}><PostText post={post} /></div>
+      <div className="mt-1 flex flex-wrap gap-x-5">
+        <button type="button" onClick={() => setMore(!more)} aria-expanded={more} className="inline-flex min-h-11 items-center text-xs font-semibold text-neutral-200">
+          {more ? 'Show less' : 'Read the whole post'}
+        </button>
+        <OpenOn post={post} />
+      </div>
+    </article>
+  );
+}
+
 export default function PostsPage() {
-  const [open, setOpen] = useState(null);
   const [only, setOnly] = useState('All');
   useEffect(() => { document.title = 'Posts · Taimoor Alam'; }, []);
-  const tiles = [
-    ...c.posts.map((post) => ({ key: post.title, platform: post.platform, post })),
-    ...c.platforms.flatMap((p) => p.slots.map(([kind, shape], k) => ({ key: `${p.name}-${k}`, platform: p.name, kind, shape }))),
+  const names = ['All', ...c.platforms.map((p) => p.name)];
+  const items = [
+    ...c.posts.map((p) => ({ key: p.title, platform: p.platform, post: p })),
+    ...c.platforms.flatMap((p) => p.slots.map(([kind], k) => ({ key: `${p.name}-${k}`, platform: p.name, kind }))),
   ].filter((t) => only === 'All' || t.platform === only);
 
   return (
@@ -168,33 +125,35 @@ export default function PostsPage() {
           </a>
         </div>
       </header>
-      <main className="mx-auto max-w-5xl px-5 pb-32 pt-12 sm:px-10">
-        <h1 className="text-sm font-medium uppercase tracking-[0.2em] text-amber-300/80">What I write about</h1>
-        <div className="mt-6 flex flex-wrap gap-2" role="group" aria-label="Show posts from">
-          {['All', ...c.platforms.map((p) => p.name)].map((name) => (
+      <div className="mx-auto max-w-5xl px-5 pb-32 sm:px-10 lg:grid lg:grid-cols-[11rem_minmax(0,1fr)] lg:gap-10">
+        <nav aria-label="Platforms" className="thin-scroll sticky top-16 z-30 -mx-5 flex gap-1 overflow-x-auto border-b border-neutral-800 bg-neutral-950/95 px-5 py-2 backdrop-blur lg:top-24 lg:mx-0 lg:mt-12 lg:block lg:h-fit lg:space-y-1 lg:border-0 lg:bg-transparent lg:p-0">
+          {names.map((n) => (
             <button
-              key={name}
+              key={n}
               type="button"
-              aria-pressed={only === name}
-              onClick={() => setOnly(name)}
-              className={`inline-flex min-h-11 items-center gap-2 rounded-full border px-4 text-sm ${only === name ? 'border-amber-300 bg-amber-300 text-neutral-950' : 'border-neutral-700 text-neutral-300 hover:border-neutral-500'}`}
+              aria-pressed={only === n}
+              onClick={() => setOnly(n)}
+              className={`inline-flex min-h-11 shrink-0 items-center gap-2.5 rounded-xl px-3 text-[13px] lg:flex lg:w-full ${only === n ? 'bg-neutral-800 text-white' : 'text-neutral-400 hover:text-white'}`}
             >
-              {name !== 'All' && <PlatformIcon name={name} className="h-4 w-4" color={only === name ? undefined : dotOf(name)} />}
-              {name}
+              {n === 'All' ? <span className="grid h-4 w-4 place-items-center text-[10px]">✦</span> : <PlatformIcon name={n} className="h-4 w-4" color={dotOf(n)} />}
+              {n}
             </button>
           ))}
-        </div>
-        <div className="mt-8 gap-3 sm:columns-2 lg:columns-3">
-          {tiles.map((t) => (
-            <div key={t.key} className="mb-3 break-inside-avoid">
-              {t.post
-                ? <Tile post={t.post} onOpen={setOpen} className="w-full" />
-                : <Placeholder platform={t.platform} kind={t.kind} shape={t.shape} />}
-            </div>
-          ))}
-        </div>
-      </main>
-      <PostDialog post={open} onClose={() => setOpen(null)} />
+        </nav>
+        <main className="pt-8 lg:pt-12">
+          <h1 className="text-sm font-medium uppercase tracking-[0.2em] text-amber-300/80">What I write about</h1>
+          <div className="mt-6 max-w-xl space-y-3">
+            {items.map((t) => (t.post
+              ? <FeedPost key={t.key} post={t.post} />
+              : (
+                <div key={t.key} className="flex items-center gap-3 rounded-2xl border border-dashed border-neutral-700 px-5 py-4 text-[13px]">
+                  <PlatformIcon name={t.platform} className="h-4 w-4 shrink-0" color={dotOf(t.platform)} />
+                  <Gap>{t.platform} {t.kind.toLowerCase()} you pick</Gap>
+                </div>
+              )))}
+          </div>
+        </main>
+      </div>
     </div>
   );
 }

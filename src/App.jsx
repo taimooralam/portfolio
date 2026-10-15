@@ -7,7 +7,7 @@ import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion
 import * as c from './site/content';
 import { Gap, Reveal, MovingLine } from './site/parts';
 import PinnedHeader from './site/PinnedHeader';
-import { HomeCollage } from './site/Posts';
+import { HomePosts } from './site/Posts';
 
 const eyebrow = 'text-sm font-medium uppercase tracking-[0.2em] text-amber-300/80';
 const focusRing = [
@@ -126,7 +126,7 @@ export default function App() {
               buttonClass="border-neutral-700 text-neutral-400"
             />
           </div>
-          <div className="mt-8"><HomeCollage /></div>
+          <div className="mt-8"><HomePosts /></div>
           <div className="mt-4 flex flex-wrap gap-x-6">
             <a href={c.postsHref} className="inline-flex min-h-11 items-center text-sm font-semibold text-amber-300 underline underline-offset-4">See all my posts and videos →</a>
             <a href={c.linkedin} className="inline-flex min-h-11 items-center text-sm font-semibold text-neutral-300 underline underline-offset-4">Follow on LinkedIn</a>
