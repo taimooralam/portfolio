@@ -63,6 +63,9 @@ export const logos = [
 // The four stories are decided by title only; their words come from business#86 (not written yet).
 // His pick, 2026-10-14 (#10, option A of three): the heading above the four stories.
 export const storiesHeading = "Business problems I've solved";
+// Hidden until those words exist: go-live came first (decided 2026-10-13, business#86), and no
+// dashed placeholder may show on the live site. Set to true when business#86 is done.
+export const storiesLive = false;
 export const stories = [
   'Seven.One TV advertising platform',
   'Seven.One AI platform',

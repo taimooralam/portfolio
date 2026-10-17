@@ -150,22 +150,24 @@ export default function App() {
           </ul>
         </section>
 
-        <section className="mt-16 lg:mt-24">
-          <h2 id="stories-heading" className={eyebrow}>{c.storiesHeading}</h2>
-          <div
-            role="region" aria-labelledby="stories-heading" tabIndex={0}
-            className="-mx-5 mt-6 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-4 sm:-mx-10 sm:px-10 lg:mx-0 lg:grid lg:grid-cols-2 lg:overflow-visible lg:px-0"
-          >
-            {c.stories.map((s, k) => (
-              <article key={s} className="w-[80%] shrink-0 snap-start rounded-3xl bg-gradient-to-br from-neutral-800 to-neutral-900 p-6 sm:w-80 lg:w-auto lg:min-w-0">
-                <p className="text-5xl font-bold text-neutral-600" aria-hidden="true">{k + 1}</p>
-                <h3 className="mt-6 text-xl font-semibold text-white">{s}</h3>
-                <p className="mt-3 text-neutral-400"><Gap>the story, in your words</Gap></p>
-              </article>
-            ))}
-          </div>
-          <p className="mt-2 text-xs text-neutral-400 lg:hidden">Swipe →</p>
-        </section>
+        {c.storiesLive && (
+          <section className="mt-16 lg:mt-24">
+            <h2 id="stories-heading" className={eyebrow}>{c.storiesHeading}</h2>
+            <div
+              role="region" aria-labelledby="stories-heading" tabIndex={0}
+              className="-mx-5 mt-6 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-4 sm:-mx-10 sm:px-10 lg:mx-0 lg:grid lg:grid-cols-2 lg:overflow-visible lg:px-0"
+            >
+              {c.stories.map((s, k) => (
+                <article key={s} className="w-[80%] shrink-0 snap-start rounded-3xl bg-gradient-to-br from-neutral-800 to-neutral-900 p-6 sm:w-80 lg:w-auto lg:min-w-0">
+                  <p className="text-5xl font-bold text-neutral-600" aria-hidden="true">{k + 1}</p>
+                  <h3 className="mt-6 text-xl font-semibold text-white">{s}</h3>
+                  <p className="mt-3 text-neutral-400"><Gap>the story, in your words</Gap></p>
+                </article>
+              ))}
+            </div>
+            <p className="mt-2 text-xs text-neutral-400 lg:hidden">Swipe →</p>
+          </section>
+        )}
 
 
         <Reveal as="section" className="mt-16 max-w-2xl rounded-3xl border border-amber-300/30 bg-gradient-to-b from-amber-300/10 to-transparent p-8 text-center lg:mt-24">
