@@ -79,6 +79,26 @@ export const linkedin = 'https://www.linkedin.com/in/taimooralam';
 // line and full text are his, verbatim, as he pasted them. Links: his lnkd.in short links
 // (2026-10-15), resolved and stripped of the share-tracking query.
 export const posts = [
+  // Added 2026-10-25 at his request (business#87, DDD post v3). Agent-worded in his voice, at
+  // his request. href stays empty until he gives the post's own link.
+  {
+    platform: 'LinkedIn',
+    kind: 'Post',
+    title: 'Domain-Driven Design is even more relevant now.',
+    lead: 'When agents write more of the code, people read less of it. A shared language is how people still understand it.',
+    href: '',
+    body: [
+      'Learn the words of a codebase, and you learn the codebase. Each word names a thing in the business. The words show how those things connect. When the code uses them the same way everywhere, you can understand the system without reading every line.',
+      'Keep the business at the centre. The domain model holds the business rules. Application logic sits around it. Repositories, stores and HTTP requests sit at the outer edge. This shape comes from onion and hexagonal architecture, which pair well with DDD. It lets a person find the right layer fast. Read the centre to see what the business does. Read the edge to see how the code talks to the world.',
+      'Use one language in each part of the business. DDD calls this ubiquitous language. A bounded context is one part of the business with its own model, such as billing or shipping. Inside a bounded context, each term has one meaning. Everyone in that context uses the same words.',
+      'The team now includes AI agents. Every agent that writes, reviews or explains code must use those words too. Take billing. A charge becomes an invoice only after approval. An agent that mixes the two words writes a bug, not a style problem.',
+      "A glossary alone is not enough. An agent can use the right words and still build the wrong thing. So the words need checks: in the agent's instructions, in code review, and in tests on the business rules.",
+      'In my own repos, the glossary lives next to the code, and every agent gets it as context.',
+      'Without a shared language, agents multiply the drift. With one, they make the team faster, and the code still means what the business means.',
+      'So learn the language first. Know the language, and you know the codebase. With agents on the team, that is how people keep up.',
+      'What makes your agents keep your domain language, and how would you see it drift?',
+    ],
+  },
   // Added 2026-10-25 at his request (business#87, the prose version). Not pasted by him: built
   // from his reel script, agent-worded, and he said "done" after reading it. href stays empty
   // until he gives the post's own link.
