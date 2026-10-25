@@ -23,7 +23,9 @@ function PostText({ post, skipFirst = false }) {
   );
 }
 
+// No link until he gives the post's own URL; never a stand-in link.
 function OpenOn({ post }) {
+  if (!post.href) return null;
   return (
     <a href={post.href} target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center gap-2 text-xs font-semibold text-amber-300 underline underline-offset-4">
       <PlatformIcon name={post.platform} className="h-3.5 w-3.5" /> Open on {post.platform} →

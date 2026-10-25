@@ -79,6 +79,24 @@ export const linkedin = 'https://www.linkedin.com/in/taimooralam';
 // line and full text are his, verbatim, as he pasted them. Links: his lnkd.in short links
 // (2026-10-15), resolved and stripped of the share-tracking query.
 export const posts = [
+  // Added 2026-10-25 at his request (business#87, the prose version). Not pasted by him: built
+  // from his reel script, agent-worded, and he said "done" after reading it. href stays empty
+  // until he gives the post's own link.
+  {
+    platform: 'LinkedIn',
+    kind: 'Post',
+    title: 'Stop optimising tokens for cost. Optimise them for signal first.',
+    lead: "If you cut tokens first, you can't tell whether your AI got cheaper or just got worse.",
+    href: '',
+    body: [
+      'A token is a chunk of text a model reads or writes. Signal is how much those tokens move the answer toward what you need. And high-signal tokens for machines are not the same as high-signal tokens for people.',
+      'What goes in is for the machine. Use generic language with specific vocabulary the model was trained on: tell it to write in Simplified Technical English, or to use MUST and SHOULD as defined in RFC 2119. A named standard packs a page of rules into a few words. Test that the model follows it, and spell out the rules that matter most.',
+      "What comes out is for the human. People need output they can understand, in their own terms. So give the model the vocabulary you already have, your glossary or your CONTEXT.md, and tell it to answer in that language. Then check that it does. The answer comes back in your team's words, not the model's.",
+      "Only then do you turn to cost. Once you know what's high signal for the machine and for the human, you have a quality bar you can measure. Now you can compress the prompt, route simple work to a cheaper model, and fine-tune where the volume justifies it. Check every cut against that bar. If quality drops, the saving isn't one.",
+      'Quality first. Cost second.',
+      'Which terms must your AI use exactly, and how do you check that it does?',
+    ],
+  },
   {
     platform: 'LinkedIn',
     kind: 'Post',
